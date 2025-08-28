@@ -1,0 +1,19 @@
+{
+  "MonsterModifier:WeakModifier": {
+    "TEXT": [
+      "沮丧的",
+      "战斗开始时获得两层虚弱"
+    ]
+  },
+  "MonsterModifier:HappyModifier": {
+    "TEXT": [
+      "开心的",
+      "战斗开始时获得1点力量"
+    ]
+  }, "MonsterModifier:SplitModifier": {
+    "TEXT": [
+      "分裂的",
+      "半血时意图改为分裂"
+    ]
+  }
+}

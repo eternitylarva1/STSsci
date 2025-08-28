@@ -1,0 +1,33 @@
+{
+  "Muban:heiguang": {
+    "NAME": "黑光侵染",
+    "DESCRIPTIONS": [
+      "每当层数超过33层时，目标会被眩晕并添加6层易伤与虚弱并归零"
+    ]
+  },"Muban:StunnedPower": {
+  "NAME": "眩晕",
+  "DESCRIPTIONS": [
+    "跳过下个出牌阶段"
+  ]
+},"Muban:hudunpower": {
+  "NAME": "护盾",
+  "DESCRIPTIONS": [
+    "每次受到 #y6 次生命值伤害后获得 #y1 层 缓冲 "
+
+  ]
+},"Muban:zuzhizaisheng": {
+  "NAME": "组织再生",
+  "DESCRIPTIONS": [
+    "回合结束时,回复 ",
+    "%的已损失生命，并层数减少当前生命10%层数,目前能恢复",
+"血"
+  ]
+},"Muban:shiyingxing": {
+  "NAME": "适应性",
+  "DESCRIPTIONS": [
+    "受到的伤害减少 ",
+    "%(计算方法：层数/层数+当前生命/3),回合结束时，减少当前生命5%层数"
+
+  ]
+}
+}
