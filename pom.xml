@@ -28,9 +28,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.github.casey-c</groupId>
+            <groupId>easel</groupId>
             <artifactId>easel</artifactId>
-            <version>0.0.2</version>
+            <version>2020-11-30</version>
+            <scope>system</scope>
+            <systemPath>${Steam.path}/common/SlayTheSpire/libs/easel-0.0.3.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.megacrit.cardcrawl</groupId>

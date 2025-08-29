@@ -6,5 +6,5 @@
   "version": "0.1.0",
   "sts_version": "12-22-2020",
   "mts_version": "3.23.2",
-  "dependencies": ["basemod","stslib"]
+  "dependencies": ["basemod","stslib","ojb_easel"]
 }

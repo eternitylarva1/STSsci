@@ -11,6 +11,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
+import com.megacrit.cardcrawl.cards.blue.SelfRepair;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -21,6 +22,7 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import sciSTS.relics.FullCage;
+import sciSTS.screens.EventScreen;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -50,7 +52,13 @@ public class SciSTS implements PostUpdateSubscriber,PostInitializeSubscriber,Edi
         config.load();
 
     }
+public static boolean shouldDraw() {
+        if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(PenNib.ID)&&AbstractDungeon.player.hasRelic(InkBottle.ID)){
+            return true;
+        }
+        return false;
 
+}
     // 当basemod开始注册mod卡牌时，便会调用这个函数
 
     @Override
@@ -84,7 +92,7 @@ public class SciSTS implements PostUpdateSubscriber,PostInitializeSubscriber,Edi
     }
     @Override
     public void receivePostInitialize() {
-
+BaseMod.addCustomScreen(new EventScreen());
     }
 
 
