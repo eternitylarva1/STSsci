@@ -1,8 +1,8 @@
-package MonsterModifier.helpers;
+package sciSTS.helpers;
 
 public class ModHelper {
     public static String makePath(String id) {
-        return "MonsterModifier:" + id;
+        return "SciSTS:" + id;
     }
 
 }

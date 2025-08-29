@@ -1,0 +1,85 @@
+package sciSTS.cards;
+
+import basemod.abstracts.CustomCard;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.red.Clash;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.localization.CardStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.beyond.AwakenedOne;
+import com.megacrit.cardcrawl.monsters.city.Byrd;
+import com.megacrit.cardcrawl.monsters.city.Chosen;
+import com.megacrit.cardcrawl.monsters.exordium.Cultist;
+import com.megacrit.cardcrawl.relics.PreservedInsect;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
+import sciSTS.relics.EmptyCage;
+import sciSTS.relics.FullCage;
+
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.getMonsters;
+import static com.megacrit.cardcrawl.monsters.AbstractMonster.EnemyType.BOSS;
+import static com.megacrit.cardcrawl.monsters.AbstractMonster.EnemyType.ELITE;
+
+public class PokeBall1 extends CustomCard {
+    private static final CardStrings cardStrings;
+    public static final String ID = "SciPokeBall1";
+    public static final String NAME;
+    public static final String DESCRIPTION;
+    private  int s=0;
+
+    private FullCage pokeGo;
+
+    public PokeBall1(FullCage pokeGo) {
+        super(ID, NAME, "images/cards/PokeBall.png", 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ENEMY);
+        this.exhaust = true;
+        this.isEthereal = true;
+        this.pokeGo = pokeGo;
+
+
+    }
+
+    public void use(AbstractPlayer p, AbstractMonster m) {
+        if (m.name.contains(cardStrings.EXTENDED_DESCRIPTION[0])){
+            if (m.currentHealth>1){
+                return;
+            }
+            AbstractDungeon.effectsQueue.add(new AbstractGameEffect() {
+
+                @Override
+                public void render(SpriteBatch spriteBatch) {
+                    isDone=true;
+                    AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)(Settings.WIDTH / 2), (float)(Settings.HEIGHT / 2), new PreservedInsect());
+                    m.die();
+                }
+
+                @Override
+                public void dispose() {
+
+                }
+            });
+
+        }
+    }
+
+
+    public AbstractCard makeCopy() {
+        return new PokeBall1(pokeGo);
+    }
+
+    public void upgrade() {
+    }
+
+    @Override
+    public boolean canUpgrade() {
+        return false;
+    }
+
+    static {
+        cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
+        NAME = cardStrings.NAME;
+        DESCRIPTION = cardStrings.DESCRIPTION;
+    }
+}

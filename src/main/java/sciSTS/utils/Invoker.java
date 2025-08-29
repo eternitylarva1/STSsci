@@ -1,4 +1,4 @@
-package MonsterModifier.utils;
+package sciSTS.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

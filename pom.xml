@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- 改成你需要的名称 -->
-    <groupId>MonsterModifier</groupId>
+    <groupId>SciSTS</groupId>
     <!-- 改成你需要的名称 -->
-    <artifactId>MonsterModifier</artifactId>
+    <artifactId>SciSTS</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <!-- 改成你需要的名称 -->
-    <name>MonsterModifier</name>
+    <name>SciSTS</name>
     <!-- 改不改由你 -->
     <description>a sts mod.</description>
 
@@ -27,6 +27,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.github.casey-c</groupId>
+            <artifactId>easel</artifactId>
+            <version>0.0.2</version>
+        </dependency>
         <dependency>
             <groupId>com.megacrit.cardcrawl</groupId>
             <artifactId>slaythespire</artifactId>

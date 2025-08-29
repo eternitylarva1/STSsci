@@ -1,0 +1,23 @@
+{
+  "ForeignInfluence": {
+    "NAME": "他山之石",
+    "DESCRIPTION": "进行一把黄金矿工：根据采集到的东西获得对应的奖励。 NL 消耗 。",
+    "UPGRADE_DESCRIPTION": "进行一把黄金矿工：根据采集到的东西获得对应的奖励。 抓到的牌张牌在本回合耗能变为0。 消耗 。"
+  },"SciPokeBall": {
+    "NAME": "捕捉",
+    "DESCRIPTION": "捕捉一只1血的鸟类敌人。 NL 消耗 。 虚无 ",
+    "UPGRADE_DESCRIPTION": "捕捉一只1血的鸟类敌人。 NL 消耗 。 ",
+  "EXTENDED_DESCRIPTION": [
+    "虫",
+    "目标不是1血的虫类敌人"
+  ]
+  },"SciPokeBall1": {
+  "NAME": "捕捉",
+  "DESCRIPTION": "捕捉一只1血的虫类敌人。 NL 消耗 。 虚无 ",
+  "UPGRADE_DESCRIPTION": "捕捉一只1血的虫类敌人。 NL 消耗 。 ",
+  "EXTENDED_DESCRIPTION": [
+    "虫",
+    "目标不是1血的虫类敌人"
+  ]
+}
+}

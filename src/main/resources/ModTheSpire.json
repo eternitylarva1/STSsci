@@ -1,10 +1,10 @@
 {
-  "modid": "MonsterModifier",
-  "name": "怪物词条",
+  "modid": "SciSTS",
+  "name": "更科学的杀戮尖塔 More-Sci-STS",
   "author_list": ["Dieyou"],
   "description": "作者@b站蝴蝶是幼虫",
-  "version": "0.1.4",
+  "version": "0.1.0",
   "sts_version": "12-22-2020",
   "mts_version": "3.23.2",
-  "dependencies": ["basemod","stslib","loadout"]
+  "dependencies": ["basemod","stslib"]
 }
