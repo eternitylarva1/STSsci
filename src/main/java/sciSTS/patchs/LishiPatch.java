@@ -53,49 +53,20 @@ if (__instance.counter==0){
 
         }
 
-    } @SpirePatch(
-            clz = Strawberry.class,
-            method = "onEquip"
-    )
-    public static class StrawberryPatch {
-
-        @SpirePrefixPatch
-        public static SpireReturn Prefix(Strawberry  __instance) {
-            if(CardCrawlGame.chosenCharacter== AbstractPlayer.PlayerClass.DEFECT){
-                return SpireReturn.Return();
-            }
-            return SpireReturn.Continue();
-
-        }
-
-    } @SpirePatch(
-            clz = Mango.class,
-            method = "onEquip"
-    )
-    public static class MangoPatch {
-
-        @SpirePrefixPatch
-        public static SpireReturn Prefix(Mango  __instance) {
-            if(CardCrawlGame.chosenCharacter== AbstractPlayer.PlayerClass.DEFECT){
-                return SpireReturn.Return();
-            }
-            return SpireReturn.Continue();
-
-        }
-
-    }@SpirePatch(
+    }  @SpirePatch(
             clz = ExplosivePower.class,
             method = "duringTurn"
     )
     public static class ExplosivePatch {
 
         @SpireInsertPatch(
-                rloc=2
+                rloc=3
         )
         public static SpireReturn Prefix(ExplosivePower  __instance) {
-            DamageInfo damageInfo = new DamageInfo(__instance.owner, 30, DamageInfo.DamageType.THORNS);
-            AbstractDungeon.actionManager.addToBottom(new DamageAllEnemiesAction((AbstractCreature)null, DamageInfo.createDamageMatrix(damageInfo.base, true), DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.FIRE));
-
+            if (__instance.amount == 1 && !__instance.owner.isDying) {
+                DamageInfo damageInfo = new DamageInfo(__instance.owner, 30, DamageInfo.DamageType.THORNS);
+                AbstractDungeon.actionManager.addToBottom(new DamageAllEnemiesAction((AbstractCreature) null, DamageInfo.createDamageMatrix(damageInfo.base, true), DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.FIRE));
+            }
             return SpireReturn.Continue();
 
         }

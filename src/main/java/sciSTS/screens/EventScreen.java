@@ -55,7 +55,7 @@ public class EventScreen extends CustomScreen  {
     }
 
     private void open(AbstractEvent event) {
-this.event=event;
+        this.event=event;
         if (AbstractDungeon.screen != AbstractDungeon.CurrentScreen.NONE) {
             AbstractDungeon.previousScreen = AbstractDungeon.screen;
         }
@@ -149,9 +149,8 @@ this.event=event;
 
     @Override
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.setColor(new Color(0.0F, 0.0F, 0.0F, 0.8F));
-        spriteBatch.draw(ImageMaster.WHITE_SQUARE_IMG, 0.0F, 0.0F, (float) Settings.WIDTH, (float) Settings.HEIGHT - 64.0F * Settings.scale);
-        this.event.render(spriteBatch);
+      //  spriteBatch.setColor(new Color(0.0F, 0.0F, 0.0F, 0.8F));
+       this.event.render(spriteBatch);
     }
 
     @Override

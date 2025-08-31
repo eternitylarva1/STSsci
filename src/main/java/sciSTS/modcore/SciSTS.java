@@ -12,16 +12,20 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.cards.blue.SelfRepair;
+import com.megacrit.cardcrawl.cards.purple.ForeignInfluence;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
+import com.megacrit.cardcrawl.helpers.RelicLibrary;
+import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.Keyword;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import sciSTS.relics.FullCage;
+import sciSTS.relics.UncrackedCore;
 import sciSTS.screens.EventScreen;
 
 import java.io.IOException;
@@ -36,7 +40,7 @@ import static com.megacrit.cardcrawl.core.Settings.language;
 
 
 @SpireInitializer
-public class SciSTS implements PostUpdateSubscriber,PostInitializeSubscriber,EditKeywordsSubscriber,OnStartBattleSubscriber, PostBattleSubscriber,StartActSubscriber , EditStringsSubscriber, EditRelicsSubscriber,OnPlayerTurnStartSubscriber { // 实现接口
+public class SciSTS implements EditCardsSubscriber,PostUpdateSubscriber,PostInitializeSubscriber,EditKeywordsSubscriber,OnStartBattleSubscriber, PostBattleSubscriber,StartActSubscriber , EditStringsSubscriber, EditRelicsSubscriber,OnPlayerTurnStartSubscriber { // 实现接口
     public SciSTS() {
         BaseMod.subscribe(this); // 告诉basemod你要订阅事件
     }
@@ -68,8 +72,14 @@ public static boolean shouldDraw() {
 
     @Override
     public void receiveEditRelics() {
-        BaseMod.addRelic(new EmptyCage(), RelicType.SHARED);
+
+        BaseMod.addRelic(new sciSTS.relics.EmptyCage(), RelicType.SHARED);
         BaseMod.addRelic(new FullCage(), RelicType.SHARED);
+        BaseMod.addRelic(new UncrackedCore(), RelicType.SHARED);
+        BaseMod.addRelic(new  sciSTS.relics.Pear(), RelicType.SHARED);
+        BaseMod.addRelic(new  sciSTS.relics.Strawberry(), RelicType.SHARED);
+        BaseMod.addRelic(new sciSTS.relics.Mango(), RelicType.SHARED);
+
     }
 
     @Override
@@ -82,6 +92,7 @@ public static boolean shouldDraw() {
         }
    BaseMod.loadCustomStringsFile(RelicStrings.class, "SciSTSResources/localization/" + lang + "/relics.json");
         BaseMod.loadCustomStringsFile(UIStrings.class, "SciSTSResources/localization/" + lang + "/ui.json");
+        BaseMod.loadCustomStringsFile(CardStrings.class, "SciSTSResources/localization/" + lang + "/cards.json");
 
     }
     public static float getYPos(float y) {
@@ -93,6 +104,10 @@ public static boolean shouldDraw() {
     @Override
     public void receivePostInitialize() {
 BaseMod.addCustomScreen(new EventScreen());
+        BaseMod.removeRelic(RelicLibrary.getRelic(Pear.ID));
+        BaseMod.removeRelic(RelicLibrary.getRelic(Strawberry.ID));
+        BaseMod.removeRelic(RelicLibrary.getRelic(Mango.ID));
+        BaseMod.removeRelic(RelicLibrary.getRelic(EmptyCage.ID));
     }
 
 
@@ -125,19 +140,19 @@ BaseMod.addCustomScreen(new EventScreen());
     @Override
     public void receiveOnPlayerTurnStart() {
         turn++;
-if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(Pear.ID)){
+if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(sciSTS.relics.Pear.ID)){
     if (turn==1){
-        AbstractDungeon.player.getRelic(Pear.ID).flash();
+        AbstractDungeon.player.getRelic(sciSTS.relics.Pear.ID).flash();
         AbstractDungeon.actionManager.addToBottom(new GainEnergyAction(1));
     }
-}if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(Strawberry.ID)){
+}if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(sciSTS.relics.Strawberry.ID)){
             if (turn==2){
-                AbstractDungeon.player.getRelic(Strawberry.ID).flash();
+                AbstractDungeon.player.getRelic(sciSTS.relics.Strawberry.ID).flash();
                 AbstractDungeon.actionManager.addToBottom(new GainEnergyAction(1));
             }
-        }if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(Mango.ID)){
+        }if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(sciSTS.relics.Mango.ID)){
             if (turn==3){
-                AbstractDungeon.player.getRelic(Mango.ID).flash();
+                AbstractDungeon.player.getRelic(sciSTS.relics.Mango.ID).flash();
                 AbstractDungeon.actionManager.addToBottom(new GainEnergyAction(1));
             }
         }
@@ -169,6 +184,21 @@ if (hour>=6&&hour<=18){
     sundial.tips.add(new PowerTip(sundial.DESCRIPTIONS[2],sundial.DESCRIPTIONS[5]));
 
 }
+if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(Pocketwatch.ID)){
+    AbstractRelic pocketwatch = AbstractDungeon.player.getRelic(Pocketwatch.ID);
+
+    pocketwatch.tips.removeIf(powerTip -> powerTip.header.equals(pocketwatch.DESCRIPTIONS[1]));
+
+       Calendar calendar = Calendar.getInstance();
+       int hour = calendar.get(Calendar.HOUR_OF_DAY);
+       int minute = calendar.get(Calendar.MINUTE);
+       int second = calendar.get(Calendar.SECOND);
+       String time = String.format("%02d:%02d:%02d", 3, minute, second);
+    pocketwatch.tips.add(new PowerTip(pocketwatch.DESCRIPTIONS[1],pocketwatch.DESCRIPTIONS[2]+time));
+
+
+
+}
 if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(StoneCalendar.ID)){
     LocalDate today = LocalDate.now();
 
@@ -189,5 +219,11 @@ String[] trueWeekdays = language == Settings.GameLanguage.ZHS ? chineseweekdays 
     stoneCalendar.tips.removeIf(powerTip -> powerTip.header.equals(stoneCalendar.DESCRIPTIONS[3]));
     stoneCalendar.tips.add(new PowerTip(stoneCalendar.DESCRIPTIONS[3],stoneCalendar.DESCRIPTIONS[4]+weekday));
             }
+    }
+
+    @Override
+    public void receiveEditCards() {
+        BaseMod.addCard(new sciSTS.cards.SelfRepair());
+        BaseMod.addCard(new  sciSTS.cards.ForeignInfluence());
     }
 }

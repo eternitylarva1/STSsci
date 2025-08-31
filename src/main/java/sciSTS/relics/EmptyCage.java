@@ -20,11 +20,11 @@ import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
 import java.util.ArrayList;
 import sciSTS.cards.PokeBall;
 public class EmptyCage extends AbstractRelic implements ClickableRelic {
-    public static final String ID = "Empty Cage";
+    public static final String ID = "Sci:Empty Cage";
     private boolean cardsSelected = true;
-
+    private boolean canused=true;
     public EmptyCage() {
-        super("Empty Cage", "cage.png", RelicTier.BOSS, LandingSound.SOLID);
+        super("Sci:Empty Cage", "cage.png", RelicTier.BOSS, LandingSound.SOLID);
     }
 
     public String getUpdatedDescription() {
@@ -58,6 +58,12 @@ public class EmptyCage extends AbstractRelic implements ClickableRelic {
         }
     }
 
+    @Override
+    public void atTurnStartPostDraw() {
+        super.atTurnStartPostDraw();
+        canused=true;
+    }
+
     public void update() {
         super.update();
         if (!this.cardsSelected && AbstractDungeon.gridSelectScreen.selectedCards.size() == 2) {
@@ -88,8 +94,12 @@ public class EmptyCage extends AbstractRelic implements ClickableRelic {
 
     @Override
     public void onRightClick() {
+        if (AbstractDungeon.getCurrRoom().phase != RoomPhase.COMBAT||!(canused)){
+            return;
+        }
         if (AbstractDungeon.player!=null&&AbstractDungeon.player.hasRelic(this.relicId)){
 this.addToTop(new MakeTempCardInHandAction(new PokeBall( this)));
+            canused=false;
         }
     }
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -549,8 +550,8 @@ public class GremlinMiner extends AbstractImageEvent {
             collected = true;
             if (card != null) {
                 card.targetAngle = 0;
-                AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, Settings.WIDTH / 2f, Settings.HEIGHT / 2f));
-            } else {
+                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(card));
+              } else {
                 int roll = MathUtils.random(2);
                 switch (roll) {
                     case 0:

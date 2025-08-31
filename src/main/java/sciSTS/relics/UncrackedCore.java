@@ -15,10 +15,10 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.CoffeeDripper;
 
 public class UncrackedCore extends CustomRelic {
-    public static final String ID = "UncrackedCore";
+    public static final String ID = "FixedCore";
 
     public UncrackedCore() {
-        super("UncrackedCore", new Texture("SciSTSResources/images/relics/crackedOrb.png"), RelicTier.STARTER, LandingSound.CLINK);
+        super(ID, new Texture("SciSTSResources/images/relics/crackedOrb.png"), RelicTier.STARTER, LandingSound.CLINK);
     }
 
     public String getUpdatedDescription() {

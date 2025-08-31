@@ -33,7 +33,7 @@ public class PokeBall1 extends CustomCard {
     private FullCage pokeGo;
 
     public PokeBall1(FullCage pokeGo) {
-        super(ID, NAME, "images/cards/PokeBall.png", 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ENEMY);
+        super(ID, NAME, "SciSTSResources/images/cards/PokeBall.png", 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ENEMY);
         this.exhaust = true;
         this.isEthereal = true;
         this.pokeGo = pokeGo;
@@ -46,13 +46,16 @@ public class PokeBall1 extends CustomCard {
             if (m.currentHealth>1){
                 return;
             }
-            AbstractDungeon.effectsQueue.add(new AbstractGameEffect() {
-
-                @Override
-                public void render(SpriteBatch spriteBatch) {
+            AbstractDungeon.topLevelEffectsQueue.add(new AbstractGameEffect() {
+                public void update() {
                     isDone=true;
                     AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)(Settings.WIDTH / 2), (float)(Settings.HEIGHT / 2), new PreservedInsect());
                     m.die();
+                    m.hideHealthBar();
+                }
+                @Override
+                public void render(SpriteBatch spriteBatch) {
+
                 }
 
                 @Override

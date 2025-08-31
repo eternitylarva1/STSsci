@@ -20,6 +20,7 @@ import com.megacrit.cardcrawl.monsters.beyond.Darkling;
 import com.megacrit.cardcrawl.monsters.city.Byrd;
 import com.megacrit.cardcrawl.monsters.city.Chosen;
 import com.megacrit.cardcrawl.monsters.exordium.Cultist;
+import com.megacrit.cardcrawl.relics.PreservedInsect;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import sciSTS.relics.EmptyCage;
 import sciSTS.relics.FullCage;
@@ -39,7 +40,7 @@ public class PokeBall extends CustomCard {
     private EmptyCage pokeGo;
 
     public PokeBall(EmptyCage pokeGo) {
-        super(ID, NAME, "images/cards/PokeBall.png", 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ENEMY);
+        super(ID, NAME, "SciSTSResources/images/cards/PokeBall.png", 1, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.UNCOMMON, CardTarget.ENEMY);
         this.exhaust = true;
         this.isEthereal = true;
         this.pokeGo = pokeGo;
@@ -51,13 +52,18 @@ if (isBird(m)){
    if (m.currentHealth>1){
        return;
    }
-    AbstractDungeon.effectsQueue.add(new AbstractGameEffect() {
+    AbstractDungeon.topLevelEffectsQueue.add(new AbstractGameEffect() {
+        public void update() {
+            isDone=true;
+            AbstractDungeon.player.loseRelic(EmptyCage.ID);
+            AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)(Settings.WIDTH / 2), (float)(Settings.HEIGHT / 2), new FullCage());
+            m.die();
+            m.hideHealthBar();
+        }
         @Override
         public void render(SpriteBatch spriteBatch) {
             isDone=true;
-            AbstractDungeon.player.loseRelic(pokeGo.relicId);
-            AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)(Settings.WIDTH / 2), (float)(Settings.HEIGHT / 2), new FullCage());
-            m.die();
+
         }
 
         @Override
@@ -69,7 +75,7 @@ if (isBird(m)){
 }
     }
     public static boolean isBird(AbstractMonster m){
-        if (m.name.contains(Cultist.NAME)||m.name.contains(Byrd.ID)||m.name.contains(AwakenedOne.ID)||m.name.contains(Chosen.ID)) {
+        if (m.name.contains(Cultist.NAME)||m.name.contains(Byrd.NAME)||m.name.contains(AwakenedOne.NAME)||m.name.contains(Chosen.NAME)) {
             return true;
         }
         return false;
