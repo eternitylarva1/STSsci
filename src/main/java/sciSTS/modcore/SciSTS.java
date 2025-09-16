@@ -10,18 +10,24 @@ import com.badlogic.gdx.Gdx;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.megacrit.cardcrawl.actions.common.EscapeAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
+import com.megacrit.cardcrawl.actions.common.SpawnMonsterAction;
 import com.megacrit.cardcrawl.cards.blue.SelfRepair;
 import com.megacrit.cardcrawl.cards.purple.ForeignInfluence;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.city.ForgottenAltar;
+import com.megacrit.cardcrawl.events.city.MaskedBandits;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.Keyword;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.exordium.Cultist;
 import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import sciSTS.relics.FullCage;
@@ -33,6 +39,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -80,6 +87,7 @@ public static boolean shouldDraw() {
         BaseMod.addRelic(new  sciSTS.relics.Strawberry(), RelicType.SHARED);
         BaseMod.addRelic(new sciSTS.relics.Mango(), RelicType.SHARED);
 
+
     }
 
     @Override
@@ -101,6 +109,7 @@ public static boolean shouldDraw() {
     public static float getXPos(float x) {
         return Settings.WIDTH/(3840/x);
     }
+    public static int getCultistAmountToFleet=0;
     @Override
     public void receivePostInitialize() {
 BaseMod.addCustomScreen(new EventScreen());
@@ -108,13 +117,25 @@ BaseMod.addCustomScreen(new EventScreen());
         BaseMod.removeRelic(RelicLibrary.getRelic(Strawberry.ID));
         BaseMod.removeRelic(RelicLibrary.getRelic(Mango.ID));
         BaseMod.removeRelic(RelicLibrary.getRelic(EmptyCage.ID));
+        BaseMod.removeRelic(RelicLibrary.getRelic(MedicalKit.ID));
+        BaseMod.addRelic(new sciSTS.relics.MedicalKit(), RelicType.SHARED);
     }
 
 
 
     @Override
     public void receiveOnBattleStart(AbstractRoom abstractRoom) {
+     if (getCultistAmountToFleet>0){
+         for (int i = 0; i < getCultistAmountToFleet; i++){
+             Cultist cultist = new Cultist(0,0);
+             AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(cultist,false));
+             cultist.drawX=0;
+             AbstractDungeon.actionManager.addToBottom(new EscapeAction(cultist));
 
+         }
+         getCultistAmountToFleet=0;
+
+     }
     }
 
     @Override
@@ -218,11 +239,13 @@ String[] trueWeekdays = language == Settings.GameLanguage.ZHS ? chineseweekdays 
     AbstractRelic stoneCalendar = AbstractDungeon.player.getRelic(StoneCalendar.ID);
     stoneCalendar.tips.removeIf(powerTip -> powerTip.header.equals(stoneCalendar.DESCRIPTIONS[3]));
     stoneCalendar.tips.add(new PowerTip(stoneCalendar.DESCRIPTIONS[3],stoneCalendar.DESCRIPTIONS[4]+weekday));
-            }
+
+}
     }
 
     @Override
     public void receiveEditCards() {
+ 
         BaseMod.addCard(new sciSTS.cards.SelfRepair());
         BaseMod.addCard(new  sciSTS.cards.ForeignInfluence());
     }

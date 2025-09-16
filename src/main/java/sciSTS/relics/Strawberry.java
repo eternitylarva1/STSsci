@@ -12,9 +12,10 @@ import com.megacrit.cardcrawl.localization.LocalizedStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.AbstractRelic.LandingSound;
 import com.megacrit.cardcrawl.relics.AbstractRelic.RelicTier;
+import sciSTS.helpers.ModHelper;
 
 public class Strawberry extends AbstractRelic {
-    public static final String ID = "Sci:Strawberry";
+    public static final String ID = ModHelper.makePath(Strawberry.class.getSimpleName());
     private static final int HP_AMT = 7;
 
     public Strawberry() {

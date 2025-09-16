@@ -2,7 +2,7 @@
   "modid": "SciSTS",
   "name": "更科学的杀戮尖塔 More-Sci-STS",
   "author_list": ["Dieyou"],
-  "description": "作者@b站蝴蝶是幼虫",
+  "description": "前置mod:basemod,stslib,easel。其中easel是在订阅本mod时会一起下载的，不用额外下载。作者@b站蝴蝶是幼虫。更科学的尖塔",
   "version": "0.1.0",
   "sts_version": "12-22-2020",
   "mts_version": "3.23.2",

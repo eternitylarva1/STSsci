@@ -10,8 +10,10 @@ import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.CardGroup.CardGroupType;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.exordium.Cultist;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.AbstractRelic.LandingSound;
 import com.megacrit.cardcrawl.relics.AbstractRelic.RelicTier;
@@ -45,7 +47,7 @@ public class EmptyCage extends AbstractRelic implements ClickableRelic {
         for(AbstractCard card : AbstractDungeon.player.masterDeck.getPurgeableCards().group) {
             tmp.addToTop(card);
         }
-
+        Cultist
         if (tmp.group.isEmpty()) {
             this.cardsSelected = true;
         } else {
