@@ -30,6 +30,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.exordium.Cultist;
 import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import sciSTS.cards.red.jiaoxie;
 import sciSTS.relics.FullCage;
 import sciSTS.relics.UncrackedCore;
 import sciSTS.screens.EventScreen;
@@ -248,5 +249,6 @@ String[] trueWeekdays = language == Settings.GameLanguage.ZHS ? chineseweekdays 
  
         BaseMod.addCard(new sciSTS.cards.SelfRepair());
         BaseMod.addCard(new  sciSTS.cards.ForeignInfluence());
+        BaseMod.addCard(new jiaoxie());
     }
 }

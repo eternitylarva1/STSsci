@@ -151,10 +151,16 @@
   "NAME": "烤冰淇淋",
   "FLAVOR": "“好吃！”",
   "DESCRIPTIONS": [
-    "多余的能量在回合结束时转化为等量奇迹+加入手牌。"
+    "多余的能量在回合结束时转化为等量奇迹加入手牌。"
   ]
-}, "Sci:Empty Cage": {
-  "NAME": "空鸟笼","Naijiu:MyModConfig": {
+}, "Empty Cage": {
+  "NAME": "空鸟笼",
+  "FLAVOR": "“好吃！”",
+  "DESCRIPTIONS": [
+    "右键获得捕捉卡。"
+  ]
+},
+  "Naijiu:MyModConfig": {
     "TEXT_DICT": {
       "Rare": "稀有(金卡)",
       "UnCommon": "蓝卡",
@@ -210,4 +216,4 @@
     "点火后的 #b6 回合开始时，获得 #b1 层 #y无实体 。需要在火堆点火后才能使用"
   ]
 }
-}}
+}

@@ -22,11 +22,11 @@ import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
 import java.util.ArrayList;
 import sciSTS.cards.PokeBall;
 public class EmptyCage extends AbstractRelic implements ClickableRelic {
-    public static final String ID = "Sci:Empty Cage";
+    public static final String ID = "Empty Cage";
     private boolean cardsSelected = true;
     private boolean canused=true;
     public EmptyCage() {
-        super("Sci:Empty Cage", "cage.png", RelicTier.BOSS, LandingSound.SOLID);
+        super("Empty Cage", "cage.png", RelicTier.BOSS, LandingSound.SOLID);
     }
 
     public String getUpdatedDescription() {
@@ -47,7 +47,7 @@ public class EmptyCage extends AbstractRelic implements ClickableRelic {
         for(AbstractCard card : AbstractDungeon.player.masterDeck.getPurgeableCards().group) {
             tmp.addToTop(card);
         }
-        Cultist
+
         if (tmp.group.isEmpty()) {
             this.cardsSelected = true;
         } else {
