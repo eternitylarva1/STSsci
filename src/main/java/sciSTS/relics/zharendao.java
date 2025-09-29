@@ -7,21 +7,15 @@ package sciSTS.relics;
 
 import basemod.abstracts.CustomRelic;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.relics.CrackedCore;
-import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import sciSTS.helpers.ModHelper;
 
-public class GremlinDragger extends CustomRelic {
-    public static final String ID = ModHelper.makePath(GremlinDragger.class.getSimpleName());
+public class zharendao extends CustomRelic {
+    public static final String ID = ModHelper.makePath(zharendao.class.getSimpleName());
 
-    public GremlinDragger() {
-        super(ID, new Texture("SciSTSResources/images/relics/dagger.png"), RelicTier.SPECIAL, LandingSound.CLINK);
+    public zharendao() {
+        super(ID, new Texture("SciSTSResources/images/relics/drag.png"), RelicTier.SPECIAL, LandingSound.CLINK);
     }
 
     public String getUpdatedDescription() {
@@ -41,6 +35,6 @@ public class GremlinDragger extends CustomRelic {
 
 
     public AbstractRelic makeCopy() {
-        return new GremlinDragger();
+        return new zharendao();
     }
 }

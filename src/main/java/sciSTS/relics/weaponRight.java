@@ -15,7 +15,7 @@ public class weaponRight extends CustomRelic {
     public static final String ID =  ModHelper.makePath(weaponRight.class.getSimpleName());
 
     public weaponRight() {
-        super(ID, new Texture("SciSTSResources/images/relics/weaponright.png"), RelicTier.STARTER, LandingSound.CLINK);
+        super(ID, new Texture("SciSTSResources/images/relics/weaponright.png"), RelicTier.SPECIAL, LandingSound.CLINK);
     }
 
     public String getUpdatedDescription() {

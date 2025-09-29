@@ -47,7 +47,7 @@ public class EmptyCage extends AbstractRelic implements ClickableRelic {
         for(AbstractCard card : AbstractDungeon.player.masterDeck.getPurgeableCards().group) {
             tmp.addToTop(card);
         }
-        Cultist
+
         if (tmp.group.isEmpty()) {
             this.cardsSelected = true;
         } else {
