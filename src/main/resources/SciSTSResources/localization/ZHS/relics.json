@@ -109,7 +109,7 @@
   "DESCRIPTIONS": [
     "拾起时，将你的最大生命值提升 #b","。对机器人改为前二回合获得 [E]"
   ]
-},"kaoTurnip": {
+},"Sci:kaoTurnip": {
   "NAME": "烤萝卜",
   "FLAVOR": "与生姜搭配尤为适合。",
   "DESCRIPTIONS": [
@@ -124,32 +124,32 @@
   ]
 },"Sci:kaorouchuan": {
   "NAME": "烤肉串",
-  "FLAVOR": "“太好吃了！荒疫之后就没见过这东西了啊。”——兰伟德",
+  "FLAVOR": "“太好吃了！是谁第一个把虫子串起来烤的？”——兰伟德",
   "DESCRIPTIONS": [
     "拾起时，上面每有一只怪物 生命上限增加#b","。对机器人改为前二回合获得 [E]"
   ]
 },"Sci:rouchuan": {
   "NAME": "肉串",
-  "FLAVOR": "“太好吃了！荒疫之后就没见过这东西了啊。”——兰伟德",
+  "FLAVOR": "来烤串吧！",
   "DESCRIPTIONS": [
-    "你可以在火堆烧烤这个遗物来获得血量上限，上面串的怪物越多获得的血上限越多","。"
+    "你可以在火堆烧烤这个遗物来获得血量上限，上面串的怪物越多获得的血上限越多"
   ]
-},"kaoGinger": {
+},"Sci:kaoGinger": {
   "NAME": "烤生姜",
   "FLAVOR": "在许多补品中都能用上的好东西。",
   "DESCRIPTIONS": [
     "获得 #y虚弱 时，获得等量力量。"
   ]
-}, "kaoMeat on the Bone": {
+}, "Sci:KaoMeat": {
   "NAME": "烤带骨肉",
   "FLAVOR": "这块肉会不断恢复，似乎永远也不会彻底吃光。",
   "DESCRIPTIONS": [
     "如果你在战斗结束时生命值等于或低于 #b50% ，获得 #b",
     " 点生命上限。"
   ]
-},"kaoIce Cream": {
+},"Sci:kaoIceCream": {
   "NAME": "烤冰淇淋",
-  "FLAVOR": "“好吃！”",
+  "FLAVOR": "“好喝！”",
   "DESCRIPTIONS": [
     "多余的能量在回合结束时转化为等量奇迹加入手牌。"
   ]
