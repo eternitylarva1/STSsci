@@ -1,0 +1,20 @@
+  You can make your damage numbers take on a different color by setting some spire fields on the AbstractGameAction that is doing the damage.  Setting `DamageActionColorField.damageColor` takes a Color object and sets the color.  `DamageActionColorField.fadeSpeed` takes a FadeSpeed enum to set the speed at which the color fades to white.  The options for the enum are NONE, SLOW, SLOWISH, MODERATE, and FAST.  FAST is the same speed the game normally uses.  You can also make the damage numbers cycle through colors quickly by setting `DamageActionColorField.rainbow` to true.  This will cause the other parameters to be ignored.
+
+Example:
+```
+    AbstractGameAction action = new DamageAction(m, info);
+    ColoredDamagePatch.DamageActionColorField.damageColor.set(action, Color.BLUE.cpy());
+    ColoredDamagePatch.DamageActionColorField.fadeSpeed.set(action, ColoredDamagePatch.FadeSpeed.SLOW);
+    atb(action);
+```
+
+  This would make the damage numbers blue instead of red.  It would also make the damage numbers fade to white more slowly than normal.  When you are setting a color, you MUST make sure to use a copy instead of the original color, or you can break other vfx.
+
+Example:
+```
+    AbstractGameAction action = new DamageAction(m, info);
+    ColoredDamagePatch.DamageNumberColorField.rainbow.set(action, true);
+    atb(action);
+```
+
+  This would make the damage numbers quickly cycle through colors.

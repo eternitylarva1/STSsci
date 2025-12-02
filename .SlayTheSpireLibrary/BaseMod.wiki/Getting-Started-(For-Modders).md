@@ -1,0 +1,2 @@
+# [BasicMod](https://github.com/Alchyr/BasicMod/wiki)
+[BasicMod](https://github.com/Alchyr/BasicMod/wiki) is the current recommended starting point for modding and has replaced the guide that used to be here.
