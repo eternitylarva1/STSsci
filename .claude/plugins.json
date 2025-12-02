@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "lastUpdated": 1764666504160,
+  "plugins": [
+    {
+      "filename": "git-flow-manager.md",
+      "type": "agent",
+      "metadata": {
+        "sourcePath": "agents\\git\\git-flow-manager.md",
+        "filename": "git-flow-manager.md",
+        "name": "git-flow-manager",
+        "description": "Git Flow workflow manager. Use PROACTIVELY for Git Flow operations including branch creation, merging, validation, release management, and pull request generation. Handles feature, release, and hotfix branches.",
+        "tools": [
+          "Read",
+          "Bash",
+          "Grep",
+          "Glob",
+          "Edit",
+          "Write"
+        ],
+        "category": "git",
+        "type": "agent",
+        "size": 8752,
+        "contentHash": "90d45e7e8dc4dfbb01a2e81dd68e0a20618ce96e0446a103a7b9bc5f559f7ad9",
+        "installedAt": 1764666504158,
+        "updatedAt": 1764666504158
+      }
+    }
+  ]
+}
