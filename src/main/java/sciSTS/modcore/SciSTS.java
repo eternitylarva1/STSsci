@@ -6,6 +6,7 @@ import basemod.*;
 import basemod.devcommands.relic.Relic;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
+import basemod.AutoAdd;
 import com.badlogic.gdx.Gdx;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
@@ -80,15 +81,12 @@ public static boolean shouldDraw() {
 
     @Override
     public void receiveEditRelics() {
-
-        BaseMod.addRelic(new sciSTS.relics.EmptyCage(), RelicType.SHARED);
-        BaseMod.addRelic(new FullCage(), RelicType.SHARED);
-        BaseMod.addRelic(new UncrackedCore(), RelicType.SHARED);
-        BaseMod.addRelic(new  sciSTS.relics.Pear(), RelicType.SHARED);
-        BaseMod.addRelic(new  sciSTS.relics.Strawberry(), RelicType.SHARED);
-        BaseMod.addRelic(new sciSTS.relics.Mango(), RelicType.SHARED);
-
-
+        // 使用AutoAdd自动发现和添加所有遗物
+        new AutoAdd(MyModID)
+            .packageFilter(sciSTS.relics.EmptyCage.class)
+            .any(AbstractRelic.class, (info, relic) -> {
+                BaseMod.addRelic(relic, RelicType.SHARED);
+            });
     }
 
     @Override
@@ -114,12 +112,6 @@ public static boolean shouldDraw() {
     @Override
     public void receivePostInitialize() {
 BaseMod.addCustomScreen(new EventScreen());
-        BaseMod.removeRelic(RelicLibrary.getRelic(Pear.ID));
-        BaseMod.removeRelic(RelicLibrary.getRelic(Strawberry.ID));
-        BaseMod.removeRelic(RelicLibrary.getRelic(Mango.ID));
-        BaseMod.removeRelic(RelicLibrary.getRelic(EmptyCage.ID));
-        BaseMod.removeRelic(RelicLibrary.getRelic(MedicalKit.ID));
-        BaseMod.addRelic(new sciSTS.relics.MedicalKit(), RelicType.SHARED);
     }
 
 
