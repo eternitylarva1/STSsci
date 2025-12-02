@@ -112,6 +112,12 @@ public static boolean shouldDraw() {
     @Override
     public void receivePostInitialize() {
 BaseMod.addCustomScreen(new EventScreen());
+        BaseMod.removeRelic(RelicLibrary.getRelic(Pear.ID));
+        BaseMod.removeRelic(RelicLibrary.getRelic(Strawberry.ID));
+        BaseMod.removeRelic(RelicLibrary.getRelic(Mango.ID));
+        BaseMod.removeRelic(RelicLibrary.getRelic(EmptyCage.ID));
+        BaseMod.removeRelic(RelicLibrary.getRelic(MedicalKit.ID));
+        BaseMod.addRelic(new sciSTS.relics.MedicalKit(), RelicType.SHARED);
     }
 
 
