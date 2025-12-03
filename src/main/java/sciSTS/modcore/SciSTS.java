@@ -135,11 +135,10 @@ BaseMod.addCustomScreen(new EventScreen());
         banditPointyMonsters.add(Daozuo.ID);
         CombatRewardPatch.MonsterReward.put(BanditPointy.ID, banditPointyMonsters);
 
-        // 为遗物Champ添加可掉落的怪物列表
-        List<String> champMonsters = new ArrayList<>();
-        champMonsters.add(dun.ID);
-        champMonsters.add(Sword.ID);
-        CombatRewardPatch.MonsterReward.put(Champ.ID, champMonsters);
+        // Champ怪物可掉落的遗物列表
+        List<String> champRewards = new ArrayList<>();
+        champRewards.add(Champ.ID);  // Champ怪物掉落Champ遗物
+        CombatRewardPatch.MonsterReward.put(Champ.ID, champRewards);
 
         // 为遗物GremlinLeader添加可掉落的怪物列表
         List<String> gremlinLeaderMonsters = new ArrayList<>();
