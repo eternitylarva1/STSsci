@@ -8,6 +8,7 @@ package sciSTS.relics;
 import basemod.abstracts.CustomRelic;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.animations.ShoutAction;
+import com.megacrit.cardcrawl.actions.animations.TalkAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -19,6 +20,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.BufferPower;
 import com.megacrit.cardcrawl.powers.watcher.BlockReturnPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.vfx.SpeechBubble;
 import sciSTS.helpers.ModHelper;
 
 public class Sword extends CustomRelic {
@@ -40,7 +42,7 @@ public class Sword extends CustomRelic {
         if (damageAmount > 0) {
             return damageAmount;
             }
-        AbstractDungeon.actionManager.addToBottom(new ShoutAction(AbstractDungeon.player,"你管这叫武器？"));
+        AbstractDungeon.effectList.add(new SpeechBubble(AbstractDungeon.player.dialogX,AbstractDungeon.player.dialogX,"你管这叫武器？",true));
         return damageAmount;
     }
 

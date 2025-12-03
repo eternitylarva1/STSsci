@@ -30,6 +30,7 @@ import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import sciSTS.utils.Invoker;
 
 import java.time.DayOfWeek;
@@ -135,6 +136,19 @@ if (__instance.counter==0){
           if (__instance.nextMove==3){
               AbstractDungeon.getCurrRoom().addPotionToRewards(new SmokeBomb());
           }
+            return SpireReturn.Continue();
+        }
+
+    }@SpirePatch(
+            clz = AbstractMonster.class,
+            method = "die",
+            paramtypez = {boolean.class}
+    )
+    public static class DiePatch {
+
+        @SpirePrefixPatch
+        public static SpireReturn PreFix(AbstractMonster  __instance,boolean trigger) {
+
             return SpireReturn.Continue();
         }
 

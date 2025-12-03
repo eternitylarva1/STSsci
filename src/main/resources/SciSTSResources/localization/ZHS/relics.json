@@ -53,7 +53,7 @@
   "DESCRIPTIONS": [
     "战斗开始时，如果友军数量>=2,所有友军获得5力量(玩家除外)"
   ]
-},"Sci:scythe": {
+},"Sci:Scythe": {
   "NAME": "天罚的镰刀",
   "FLAVOR": "这把镰刀曾被死神触摸过，只会收割强者的灵魂。",
   "DESCRIPTIONS": [
