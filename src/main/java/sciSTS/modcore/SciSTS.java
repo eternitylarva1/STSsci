@@ -141,9 +141,10 @@ BaseMod.addCustomScreen(new EventScreen());
         CombatRewardPatch.MonsterReward.put(dun.ID, dunMonsters);
 
 
-        List<String> champRewards = new ArrayList<>();
-        champRewards.add(Sword.ID);  // Champ怪物掉落Sword遗物
-        CombatRewardPatch.MonsterReward.put(Sword.ID, champRewards);
+        // Champ怪物掉落Sword遗物
+        List<String> swordMonsters = new ArrayList<>();
+        swordMonsters.add(Champ.ID);
+        CombatRewardPatch.MonsterReward.put(Sword.ID, swordMonsters);
 
         // 为遗物GremlinLeader添加可掉落的怪物列表
         List<String> gremlinLeaderMonsters = new ArrayList<>();
