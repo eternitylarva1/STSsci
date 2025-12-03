@@ -156,10 +156,10 @@ BaseMod.addCustomScreen(new EventScreen());
         nemesisMonsters.add(Scythe.ID);
         CombatRewardPatch.MonsterReward.put(Nemesis.ID, nemesisMonsters);
 
-        // 为遗物GremlinNob添加可掉落的怪物列表
+        // 遗物weapon可由GremlinNob怪物掉落
         List<String> gremlinNobMonsters = new ArrayList<>();
-        gremlinNobMonsters.add(weapon.ID);
-        CombatRewardPatch.MonsterReward.put(GremlinNob.ID, gremlinNobMonsters);
+        gremlinNobMonsters.add(GremlinNob.ID);
+        CombatRewardPatch.MonsterReward.put(weapon.ID, gremlinNobMonsters);
     }
 
 
