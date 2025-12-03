@@ -129,35 +129,31 @@ BaseMod.addCustomScreen(new EventScreen());
         BaseMod.removeRelic(RelicLibrary.getRelic(EmptyCage.ID));
         BaseMod.removeRelic(RelicLibrary.getRelic(MedicalKit.ID));
         BaseMod.addRelic(new sciSTS.relics.MedicalKit(), RelicType.SHARED);
-        // 为遗物BanditPointy添加可掉落的怪物列表
+
+
         List<String> banditPointyMonsters = new ArrayList<>();
         banditPointyMonsters.add(Daoyou.ID);
         banditPointyMonsters.add(Daozuo.ID);
         CombatRewardPatch.MonsterReward.put(BanditPointy.ID, banditPointyMonsters);
 
-        // 遗物Sci:dun可由Champ怪物掉落
+
         List<String> dunMonsters = new ArrayList<>();
         dunMonsters.add(Champ.ID);
         CombatRewardPatch.MonsterReward.put(dun.ID, dunMonsters);
 
-
-        // Champ怪物掉落Sword遗物
         List<String> swordMonsters = new ArrayList<>();
         swordMonsters.add(Champ.ID);
         CombatRewardPatch.MonsterReward.put(Sword.ID, swordMonsters);
 
-        // 为遗物GremlinLeader添加可掉落的怪物列表
+
         List<String> gremlinLeaderMonsters = new ArrayList<>();
         gremlinLeaderMonsters.add(GremlinDragger.ID);
         CombatRewardPatch.MonsterReward.put(GremlinLeader.ID, gremlinLeaderMonsters);
 
-        // 遗物Nemesis可由多个怪物掉落：Scythe和Nemesis
         List<String> nemesisMonsters = new ArrayList<>();
         nemesisMonsters.add(Scythe.ID);
-        nemesisMonsters.add(Nemesis.ID);
         CombatRewardPatch.MonsterReward.put(Nemesis.ID, nemesisMonsters);
 
-        // 遗物weapon可由GremlinNob怪物掉落
         List<String> gremlinNobMonsters = new ArrayList<>();
         gremlinNobMonsters.add(GremlinNob.ID);
         CombatRewardPatch.MonsterReward.put(weapon.ID, gremlinNobMonsters);
