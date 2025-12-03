@@ -6,6 +6,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardItem.RewardType;
@@ -33,7 +34,7 @@ public class CombatRewardPatch {
 
                     if (rewardKey != null) {
                         // 根据奖励键值创建对应的额外奖励
-                        RewardItem extraReward = createExtraReward(rewardKey, monster);
+                        RewardItem extraReward = new RewardItem(RelicLibrary.getRelic(rewardKey).makeCopy());
                         if (extraReward != null) {
                             __instance.rewards.add(extraReward);
                         }
@@ -43,32 +44,7 @@ public class CombatRewardPatch {
         }
     }
 
-    // 根据奖励键值创建额外奖励
-    private static RewardItem createExtraReward(String rewardKey, AbstractMonster monster) {
-        if (rewardKey == null) {
-            return null;
-        }
 
-        switch (rewardKey) {
-            case "COMMON_RELIC":
-                return new RewardItem();
-            case "GOLD_SMALL":
-                return new RewardItem(25);
-            case "GOLD_MEDIUM":
-                return new RewardItem(50);
-            case "GOLD_LARGE":
-                return new RewardItem(75);
-            case "POTION":
-                return new RewardItem(RewardType.POTION, null);
-            case "CARD_COMMON":
-                return new RewardItem();
-            case "CARD_UNCOMMON":
-                return new RewardItem();
-            case "CARD_RARE":
-                return new RewardItem();
-            default:
-                return null;
-        }
-    }
+
 
 }
