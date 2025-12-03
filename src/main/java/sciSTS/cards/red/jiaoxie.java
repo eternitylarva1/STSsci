@@ -2,10 +2,8 @@ package sciSTS.cards.red;
 
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.Slot;
@@ -23,10 +21,9 @@ import sciSTS.utils.Invoker;
 
 import java.util.ArrayList;
 
+
 import static sciSTS.utils.SpineRegionExtractor.getTextureFromSlot;
 import static sciSTS.utils.TextureCache.cacheTexture;
-import static sciSTS.utils.TextureCache.getCachedTexture;
-
 
 public class jiaoxie extends AbstractCard {
     public static final String ID = "Disarm";
@@ -89,20 +86,11 @@ AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
                 Color currentColor = slots.getColor();
 
                 Texture originalTexture = getTextureFromSlot(slots,atlas);
-                TextureAtlas.AtlasRegion atlasRegion = atlas.findRegion(slots.getData().getName());
-
                 String textureKey =slots.getData().getName()+"_"+slots.getData().getIndex();
-                if (atlasRegion != null) {
-                    Texture texture = atlasRegion.getTexture();
-                    // texture 现在包含完整的图集纹理
-                    Texture croppedTexture = createCroppedTexture(atlasRegion);
-
-                    cacheTexture(textureKey, croppedTexture);
-                    // cacheTexture(textureKey, originalTexture);
-                    currentColor.set(currentColor.r, currentColor.g, currentColor.b, 0f);
-
-                }
-            }
+              cacheTexture(textureKey, originalTexture);
+                currentColor.set(currentColor.r, currentColor.g, currentColor.b, 0f);
+            /*AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new Customweapon(getCachedTexture(textureKey))));
+            */}
 
         }
 
@@ -112,55 +100,7 @@ AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
 });
 
     }
-    private Texture createCroppedTexture(TextureRegion region) {
-        if (region instanceof TextureAtlas.AtlasRegion) {
-            TextureAtlas.AtlasRegion atlasRegion = (TextureAtlas.AtlasRegion) region;
-            Texture originalTexture = atlasRegion.getTexture();
 
-            // 检查是否有缓存
-            String cacheKey = atlasRegion.name + "_" + atlasRegion.getRegionX() + "_" + atlasRegion.getRegionY();
-            Texture cachedTexture = getCachedTexture(cacheKey);
-            if (cachedTexture != null) {
-                return cachedTexture;
-            }
-
-            try {
-                if (!originalTexture.getTextureData().isPrepared()) {
-                    originalTexture.getTextureData().prepare();
-                }
-
-                Pixmap originalPixmap = originalTexture.getTextureData().consumePixmap();
-                Pixmap croppedPixmap = new Pixmap(
-                        atlasRegion.getRegionWidth(),
-                        atlasRegion.getRegionHeight(),
-                        originalPixmap.getFormat()
-                );
-
-                croppedPixmap.drawPixmap(
-                        originalPixmap,
-                        0, 0,
-                        atlasRegion.getRegionX(),
-                        atlasRegion.getRegionY(),
-                        atlasRegion.getRegionWidth(),
-                        atlasRegion.getRegionHeight()
-                );
-
-                Texture croppedTexture = new Texture(croppedPixmap);
-
-                // 缓存纹理
-                cacheTexture(cacheKey, croppedTexture);
-
-                originalPixmap.dispose();
-                croppedPixmap.dispose();
-
-                return croppedTexture;
-            } catch (Exception e) {
-                // 出现异常时返回原始纹理
-                return region.getTexture();
-            }
-        }
-        return region.getTexture();
-    }
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();

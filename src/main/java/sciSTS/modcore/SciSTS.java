@@ -142,7 +142,7 @@ BaseMod.addCustomScreen(new EventScreen());
 
 
         List<String> champRewards = new ArrayList<>();
-        champRewards.add(Champ.ID);  // Champ怪物掉落Champ遗物
+        champRewards.add(Sword.ID);  // Champ怪物掉落Sword遗物
         CombatRewardPatch.MonsterReward.put(Sword.ID, champRewards);
 
         // 为遗物GremlinLeader添加可掉落的怪物列表
@@ -152,7 +152,7 @@ BaseMod.addCustomScreen(new EventScreen());
 
         // 为遗物Nemesis添加可掉落的怪物列表
         List<String> nemesisMonsters = new ArrayList<>();
-        nemesisMonsters.add(Scythe.ID);
+        nemesisMonsters.add(Nemesis.ID);
         CombatRewardPatch.MonsterReward.put(Nemesis.ID, nemesisMonsters);
 
         // 为遗物GremlinNob添加可掉落的怪物列表
