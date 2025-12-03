@@ -147,12 +147,11 @@ BaseMod.addCustomScreen(new EventScreen());
 
 
         List<String> gremlinLeaderMonsters = new ArrayList<>();
-        gremlinLeaderMonsters.add(GremlinDragger.ID);
+        gremlinLeaderMonsters.add(GremlinNob.ID);
         CombatRewardPatch.MonsterReward.put(GremlinLeader.ID, gremlinLeaderMonsters);
 
-        
         List<String> gremlinNobMonsters = new ArrayList<>();
-        gremlinNobMonsters.add(GremlinNob.ID);
+        gremlinNobMonsters.add(Champ.ID);
         CombatRewardPatch.MonsterReward.put(weapon.ID, gremlinNobMonsters);
     }
 
