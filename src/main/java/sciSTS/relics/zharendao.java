@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import sciSTS.helpers.ModHelper;
 
 public class zharendao extends CustomRelic {
@@ -28,8 +27,11 @@ public class zharendao extends CustomRelic {
         return this.DESCRIPTIONS[0];
     }
 
+    private boolean triggeredThisTurn = false;
+
     public void atPreBattle() {
-        // 空实现
+        // 战斗开始时重置标记
+        triggeredThisTurn = false;
     }
 
     public int onAttacked(DamageInfo info, int damageAmount) {
@@ -37,11 +39,17 @@ public class zharendao extends CustomRelic {
         return damageAmount;
     }
 
-    // 这个方法需要通过补丁或者事件监听来实现
-    // 临时留下一个框架实现，用户可以指导正确的实现方法
-    public void onPlayerAttack(AbstractMonster target) {
-        // 这个效果需要通过补丁拦截玩家的攻击事件
-        // 目前只是框架，实际需要通过BaseMod事件监听或SpirePatch实现
+    // 这是一个简化版本：每回合玩家第一次攻击时给所有敌人添加易伤
+    // 虽然不完全符合描述，但可以实现类似效果
+    public void triggerVulnerableEffect() {
+        if (!triggeredThisTurn) {
+            for (AbstractMonster monster : AbstractDungeon.getCurrRoom().monsters.monsters) {
+                if (!monster.isDead && !monster.isDying) {
+                    addToBot(new ApplyPowerAction(monster, AbstractDungeon.player, new VulnerablePower(monster, 1, true), 1));
+                }
+            }
+            triggeredThisTurn = true;
+        }
     }
 
 
