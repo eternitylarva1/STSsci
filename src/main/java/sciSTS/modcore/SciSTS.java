@@ -28,6 +28,7 @@ import com.megacrit.cardcrawl.localization.Keyword;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.city.BookOfStabbing;
 import com.megacrit.cardcrawl.monsters.exordium.Cultist;
 import com.megacrit.cardcrawl.monsters.beyond.Nemesis;
 import com.megacrit.cardcrawl.monsters.city.BanditPointy;
@@ -132,9 +133,10 @@ BaseMod.addCustomScreen(new EventScreen());
 
 
         List<String> banditPointyMonsters = new ArrayList<>();
-        banditPointyMonsters.add(Daoyou.ID);
-        banditPointyMonsters.add(Daozuo.ID);
-        CombatRewardPatch.MonsterReward.put(BanditPointy.ID, banditPointyMonsters);
+
+        banditPointyMonsters.add(BanditPointy.ID);
+        CombatRewardPatch.MonsterReward.put(Daoyou.ID, banditPointyMonsters);
+        CombatRewardPatch.MonsterReward.put(Daozuo.ID, banditPointyMonsters);
 
 
         List<String> dunMonsters = new ArrayList<>();
@@ -147,12 +149,20 @@ BaseMod.addCustomScreen(new EventScreen());
 
 
         List<String> gremlinLeaderMonsters = new ArrayList<>();
-        gremlinLeaderMonsters.add(GremlinNob.ID);
-        CombatRewardPatch.MonsterReward.put(GremlinLeader.ID, gremlinLeaderMonsters);
+        gremlinLeaderMonsters.add(GremlinLeader.ID);
+        CombatRewardPatch.MonsterReward.put(GremlinDragger.ID, gremlinLeaderMonsters);
+
 
         List<String> gremlinNobMonsters = new ArrayList<>();
-        gremlinNobMonsters.add(Champ.ID);
+        gremlinNobMonsters.add(GremlinNob.ID);
         CombatRewardPatch.MonsterReward.put(weapon.ID, gremlinNobMonsters);
+
+        List<String> NemesisMonsters = new ArrayList<>();
+        NemesisMonsters.add(Nemesis.ID);
+        CombatRewardPatch.MonsterReward.put(Scythe.ID, NemesisMonsters);
+        List<String> BookOfstabbingMonsters = new ArrayList<>();
+        NemesisMonsters.add(BookOfStabbing.ID);
+        CombatRewardPatch.MonsterReward.put(zharendao.ID, NemesisMonsters);
     }
 
 
