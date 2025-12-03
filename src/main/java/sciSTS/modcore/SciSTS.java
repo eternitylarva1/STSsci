@@ -29,11 +29,15 @@ import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.exordium.Cultist;
+import com.megacrit.cardcrawl.monsters.beyond.Nemesis;
+import com.megacrit.cardcrawl.monsters.city.BanditPointy;
+import com.megacrit.cardcrawl.monsters.city.Champ;
+import com.megacrit.cardcrawl.monsters.city.GremlinLeader;
+import sciSTS.patchs.CombatRewardPatch;
 import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import sciSTS.cards.red.jiaoxie;
-import sciSTS.relics.FullCage;
-import sciSTS.relics.UncrackedCore;
+import sciSTS.relics.*;
 import sciSTS.screens.EventScreen;
 
 import java.io.IOException;
@@ -118,6 +122,13 @@ BaseMod.addCustomScreen(new EventScreen());
         BaseMod.removeRelic(RelicLibrary.getRelic(EmptyCage.ID));
         BaseMod.removeRelic(RelicLibrary.getRelic(MedicalKit.ID));
         BaseMod.addRelic(new sciSTS.relics.MedicalKit(), RelicType.SHARED);
+        CombatRewardPatch.MonsterReward.put(Daoyou.ID, BanditPointy.ID);
+        CombatRewardPatch.MonsterReward.put(Daozuo.ID, BanditPointy.ID);
+        CombatRewardPatch.MonsterReward.put(dun.ID, Champ.ID);
+        CombatRewardPatch.MonsterReward.put(GremlinDragger.ID, GremlinLeader.ID);
+        CombatRewardPatch.MonsterReward.put(Scythe.ID, Nemesis.ID);
+        CombatRewardPatch.MonsterReward.put(Sword.ID, Champ.ID);
+        CombatRewardPatch.MonsterReward.put(weapon.ID, GremlinNob.ID);
     }
 
 
