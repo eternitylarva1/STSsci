@@ -53,6 +53,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 import static com.megacrit.cardcrawl.core.Settings.language;
@@ -128,13 +129,32 @@ BaseMod.addCustomScreen(new EventScreen());
         BaseMod.removeRelic(RelicLibrary.getRelic(EmptyCage.ID));
         BaseMod.removeRelic(RelicLibrary.getRelic(MedicalKit.ID));
         BaseMod.addRelic(new sciSTS.relics.MedicalKit(), RelicType.SHARED);
-        CombatRewardPatch.MonsterReward.put(Daoyou.ID, BanditPointy.ID);
-        CombatRewardPatch.MonsterReward.put(Daozuo.ID, BanditPointy.ID);
-        CombatRewardPatch.MonsterReward.put(dun.ID, Champ.ID);
-        CombatRewardPatch.MonsterReward.put(GremlinDragger.ID, GremlinLeader.ID);
-        CombatRewardPatch.MonsterReward.put(Scythe.ID, Nemesis.ID);
-        CombatRewardPatch.MonsterReward.put(Sword.ID, Champ.ID);
-        CombatRewardPatch.MonsterReward.put(weapon.ID, GremlinNob.ID);
+        // 为遗物BanditPointy添加可掉落的怪物列表
+        List<String> banditPointyMonsters = new ArrayList<>();
+        banditPointyMonsters.add(Daoyou.ID);
+        banditPointyMonsters.add(Daozuo.ID);
+        CombatRewardPatch.MonsterReward.put(BanditPointy.ID, banditPointyMonsters);
+
+        // 为遗物Champ添加可掉落的怪物列表
+        List<String> champMonsters = new ArrayList<>();
+        champMonsters.add(dun.ID);
+        champMonsters.add(Sword.ID);
+        CombatRewardPatch.MonsterReward.put(Champ.ID, champMonsters);
+
+        // 为遗物GremlinLeader添加可掉落的怪物列表
+        List<String> gremlinLeaderMonsters = new ArrayList<>();
+        gremlinLeaderMonsters.add(GremlinDragger.ID);
+        CombatRewardPatch.MonsterReward.put(GremlinLeader.ID, gremlinLeaderMonsters);
+
+        // 为遗物Nemesis添加可掉落的怪物列表
+        List<String> nemesisMonsters = new ArrayList<>();
+        nemesisMonsters.add(Scythe.ID);
+        CombatRewardPatch.MonsterReward.put(Nemesis.ID, nemesisMonsters);
+
+        // 为遗物GremlinNob添加可掉落的怪物列表
+        List<String> gremlinNobMonsters = new ArrayList<>();
+        gremlinNobMonsters.add(weapon.ID);
+        CombatRewardPatch.MonsterReward.put(GremlinNob.ID, gremlinNobMonsters);
     }
 
 
