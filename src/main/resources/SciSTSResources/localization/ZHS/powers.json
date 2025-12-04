@@ -1,3 +1,8 @@
 {
-
+  "Sci:ZhaRenDaoPower": {
+    "NAME": "扎人书的刀",
+    "DESCRIPTIONS": [
+      "本回合受到的每次伤害都会增加 #b%d 点后续伤害。"
+    ]
+  }
 }

@@ -23,6 +23,7 @@ import com.megacrit.cardcrawl.events.city.ForgottenAltar;
 import com.megacrit.cardcrawl.events.city.MaskedBandits;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
+import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.Keyword;
 import com.megacrit.cardcrawl.localization.RelicStrings;
@@ -112,7 +113,7 @@ public static boolean shouldDraw() {
    BaseMod.loadCustomStringsFile(RelicStrings.class, "SciSTSResources/localization/" + lang + "/relics.json");
         BaseMod.loadCustomStringsFile(UIStrings.class, "SciSTSResources/localization/" + lang + "/ui.json");
         BaseMod.loadCustomStringsFile(CardStrings.class, "SciSTSResources/localization/" + lang + "/cards.json");
-
+        BaseMod.loadCustomStringsFile(PowerStrings.class, "SciSTSResources/localization/" + lang + "/powers.json");
     }
     public static float getYPos(float y) {
         return Settings.HEIGHT/(2160/y);
