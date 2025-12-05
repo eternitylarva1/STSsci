@@ -8,6 +8,50 @@
 - 大部分的功能实现都是使用的依赖中的desktop.jar中的文件，请你优先反编译这个文件来找到对应的类
 - 禁止使用rm -rf 这种危险的指令，不需要的类请你注释掉
 
+### 2025-12-05 反射vs直接字段访问教训
+
+**问题描述：**
+在烧烤系统卡牌显示遗物贴图时，我错误地使用反射访问 `AbstractRelic.img` 字段，而该字段本来就是 public 的，完全可以直接访问。
+
+**错误行为：**
+```java
+// ❌ 错误的反射方式
+java.lang.reflect.Field imgField = AbstractRelic.class.getDeclaredField("img");
+imgField.setAccessible(true);
+Object texture = imgField.get(relic);
+```
+
+**正确做法：**
+```java
+// ✅ 直接访问public字段
+Object texture = relic.img;
+```
+
+**错误原因：**
+1. 没有先查看字段修饰符就盲目使用反射
+2. 不了解 `AbstractRelic.img` 是 public 字段，可以直接访问
+3. 过度复杂化简单的字段访问操作
+
+**教训总结：**
+1. **先查看字段修饰符** - 在使用反射前，先确认字段是否为 private/protected
+2. **public 字段直接访问** - 如果字段是 public 的，直接使用 `.` 访问即可
+3. **避免过度工程** - 不要为了"看起来更专业"而使用不必要的复杂技术
+4. **简化代码** - 简单直接的代码比复杂的反射更易读和维护
+
+**查看字段的正确方式：**
+```bash
+# 1. 使用MCP分析类结构
+mcp__bfHaz-Y7LcmAWkjy1mpdr__analyze_class("com.megacrit.cardcrawl.relics.AbstractRelic", projectPath)
+
+# 2. 查看SlayTheSpireLibrary源码
+head -100 ".SlayTheSpireLibrary/com/megacrit/cardcrawl/relics/AbstractRelic.java" | grep -A 2 -B 2 "public.*img"
+```
+
+**避免重复错误的方法：**
+- 访问字段前先用 MCP 或源码查看字段的修饰符
+- 只有在字段是 private/protected 时才考虑使用反射
+- 优先选择简单直接的实现方式
+
 ### 2025-12-04 火堆烧烤系统实现教训
 
 **问题描述：**
