@@ -17,10 +17,11 @@ import java.util.Map;
 public class GrillOption extends AbstractCampfireOption {
     public static final String[] TEXT;
     private boolean hasGrillableRelics;
+    private static int remainingUses = 2; // 火堆可以使用2次
 
     public GrillOption(boolean active) {
         this.label = TEXT[0];
-        this.usable = active;
+        this.usable = active && remainingUses > 0;
         this.hasGrillableRelics = checkGrillableRelics();
         this.updateUsability(active);
     }
@@ -34,6 +35,7 @@ public class GrillOption extends AbstractCampfireOption {
         GRILLABLE_MAPPING.put("Dagger", "Sci:kaoPear"); // 树枝烤梨子
         GRILLABLE_MAPPING.put("Staff", "Sci:BranchFuel"); // 树枝续火
         GRILLABLE_MAPPING.put("Mushroom", "Sci:RoastedMushroom"); // 烤蘑菇
+        GRILLABLE_MAPPING.put("Dead Branch", "Charon's Ash"); // 枯木树枝烤成卡戎灰
         // 后续新增烧烤映射直接在这里添加
         // GRILLABLE_MAPPING.put("原版遗物ID", "烧烤后遗物ID");
     }
@@ -54,10 +56,10 @@ public class GrillOption extends AbstractCampfireOption {
 
     public void updateUsability(boolean canUse) {
         this.hasGrillableRelics = checkGrillableRelics();
-        this.usable = canUse && this.hasGrillableRelics;
+        this.usable = canUse && this.hasGrillableRelics && remainingUses > 0;
 
-        if (this.hasGrillableRelics) {
-            this.description = TEXT[1] + TEXT[2];
+        if (this.hasGrillableRelics && remainingUses > 0) {
+            this.description = TEXT[1] + TEXT[2] + " (" + remainingUses + "次剩余)";
         } else {
             this.description = TEXT[1] + TEXT[3];
         }
@@ -66,9 +68,9 @@ public class GrillOption extends AbstractCampfireOption {
     }
 
     public void useOption() {
-        if (this.usable && this.hasGrillableRelics) {
+        if (this.usable && this.hasGrillableRelics && remainingUses > 0) {
             AbstractDungeon.effectList.add(new GrillEffect());
-            this.usable = false;
+            remainingUses--;
         }
     }
 

@@ -52,6 +52,7 @@ public class GrillEffect extends AbstractGameEffect {
         GRILLABLE_MAPPING.put("Dagger", "Sci:kaoPear"); // 树枝烤梨子
         GRILLABLE_MAPPING.put("Staff", "Sci:BranchFuel"); // 树枝续火
         GRILLABLE_MAPPING.put("Mushroom", "Sci:RoastedMushroom"); // 烤蘑菇
+        GRILLABLE_MAPPING.put("Dead Branch", "Charon's Ash"); // 枯木树枝烤成卡戎灰
         // 后续新增烧烤映射直接在这里添加
         // GRILLABLE_MAPPING.put("原版遗物ID", "烧烤后遗物ID");
     }
