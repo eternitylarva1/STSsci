@@ -159,10 +159,11 @@ public class GrillEffect extends AbstractGameEffect {
 
         private void changeTexturesFromRelic(AbstractRelic relic) {
             try {
-                // 通过反射获取遗物的Texture
-                java.lang.reflect.Field textureField = AbstractRelic.class.getDeclaredField("texture");
-                textureField.setAccessible(true);
-                Object texture = textureField.get(relic);
+                // 通过反射获取遗物的Texture - 正确的字段名是"img"
+                
+                java.lang.reflect.Field imgField = AbstractRelic.class.getDeclaredField("img");
+                imgField.setAccessible(true);
+                Object texture = imgField.get(relic);
 
                 if (texture != null) {
                     changeTextures((com.badlogic.gdx.graphics.Texture) texture);
