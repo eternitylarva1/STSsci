@@ -150,6 +150,22 @@ public class GrillEffect extends AbstractGameEffect {
             this.targetRelic = relic;
             this.cardID = relic.relicId;
             this.rawDescription = relic.description;
+
+            // 使用参考模式：从遗物复制贴图
+            // 通过反射获取遗物的图片字段
+            try {
+                java.lang.reflect.Field imgField = AbstractRelic.class.getDeclaredField("img");
+                imgField.setAccessible(true);
+                Object img = imgField.get(relic);
+                if (img != null) {
+                    java.lang.reflect.Field cardImgField = AbstractCard.class.getDeclaredField("img");
+                    cardImgField.setAccessible(true);
+                    cardImgField.set(this, img);
+                }
+            } catch (Exception e) {
+                // 忽略错误，使用默认图片
+            }
+
             this.initializeDescription();
         }
 
