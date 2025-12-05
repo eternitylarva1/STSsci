@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -16,6 +18,14 @@ import com.megacrit.cardcrawl.rooms.CampfireUI;
 import com.megacrit.cardcrawl.rooms.RestRoom;
 import com.megacrit.cardcrawl.ui.campfire.AbstractCampfireOption;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
+import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
+import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardColor;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardRarity;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardTarget;
+import com.megacrit.cardcrawl.cards.AbstractCard.CardType;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import sciSTS.helpers.ModHelper;
 import sciSTS.relics.*;
 import sciSTS.utils.Invoker;
@@ -48,7 +58,8 @@ public class GrillEffect extends AbstractGameEffect {
 
     private final Map<String, String> grillableMap;
     private List<AbstractRelic> availableRelics;
-    private int selectedRelicIndex = -1;
+    private List<AbstractCard> selectedRelics = new ArrayList<>();
+    private boolean hasSelected = false;
 
     public GrillEffect() {
         this.screenColor = AbstractDungeon.fadeColor.cpy();
@@ -69,11 +80,6 @@ public class GrillEffect extends AbstractGameEffect {
                 availableRelics.add(relic);
             }
         }
-
-        if (!availableRelics.isEmpty()) {
-            // 简化实现：自动选择第一个可烧烤的遗物
-            this.openedScreen = true;
-        }
     }
 
     public void update() {
@@ -82,17 +88,84 @@ public class GrillEffect extends AbstractGameEffect {
             this.updateBlackScreenColor();
         }
 
-        // 自动处理选择逻辑
-        if (this.openedScreen && this.selectedRelicIndex == -1 && !availableRelics.isEmpty()) {
-            this.selectedRelicIndex = 0;
-            grillRelic(availableRelics.get(0));
-            this.openedScreen = false;
+        // 真正的玩家选择界面实现（参考FumoEffect模式）
+        if (!AbstractDungeon.isScreenUp && !availableRelics.isEmpty() && !hasSelected) {
+            if (this.duration < 0.5F && !this.openedScreen) {
+                this.openedScreen = true;
+
+                // 创建卡牌组，每个遗物用一个虚拟卡牌表示
+                CardGroup cardGroup = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+                for (AbstractRelic relic : availableRelics) {
+                    AbstractCard relicCard = createRelicCard(relic);
+                    cardGroup.addToTop(relicCard);
+                }
+
+                // 打开选择界面让玩家选择要烧烤的遗物
+                AbstractDungeon.gridSelectScreen.open(cardGroup, 1, TEXT[0], false, false, true, false);
+            }
+        }
+
+        // 检查玩家是否选择了卡牌
+        if (!AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {
+            // 获取玩家选择的卡牌
+            selectedRelics.addAll(AbstractDungeon.gridSelectScreen.selectedCards);
+            AbstractDungeon.gridSelectScreen.selectedCards.clear();
+            hasSelected = true;
+
+            // 烧烤选中的遗物
+            for (AbstractCard selectedCard : selectedRelics) {
+                for (AbstractRelic relic : availableRelics) {
+                    if (relic.relicId.equals(selectedCard.cardID)) {
+                        grillRelic(relic);
+                        // 显示烧烤成功的效果 - 使用遗物本身创建效果
+                        ShowCardBrieflyEffect effect = new ShowCardBrieflyEffect(createRelicCard(relic), 0.0F, 0.0F);
+                        AbstractDungeon.effectsQueue.add(effect);
+                        break;
+                    }
+                }
+            }
+
+            selectedRelics.clear();
+            hasSelected = false;
         }
 
         if (this.duration < 0.0F) {
             this.isDone = true;
             this.cancelComplete();
             this.enableAllButtons();
+        }
+    }
+
+    private AbstractCard createRelicCard(AbstractRelic relic) {
+        // 创建虚拟卡牌来表示遗物
+        return new RelicCard(relic);
+    }
+
+    // 内部类：用于表示遗物的卡牌
+    private static class RelicCard extends AbstractCard {
+        private final AbstractRelic targetRelic;
+
+        public RelicCard(AbstractRelic relic) {
+            super(relic.name, relic.name, relic.imgUrl, 0, relic.description, CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
+            this.targetRelic = relic;
+            this.cardID = relic.relicId;
+            this.rawDescription = relic.description;
+            this.initializeDescription();
+        }
+
+        @Override
+        public AbstractCard makeCopy() {
+            return new RelicCard(targetRelic);
+        }
+
+        @Override
+        public void use(AbstractPlayer p, AbstractMonster m) {
+            // 这张卡牌不会真正被使用，只用于选择界面
+        }
+
+        @Override
+        public void upgrade() {
+            // 这张卡牌不能升级
         }
     }
 
