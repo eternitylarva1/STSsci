@@ -22,7 +22,7 @@ public class kaoPear extends CustomRelic {
     }
 
     public String getUpdatedDescription() {
-        return this.DESCRIPTIONS[0];
+        return this.DESCRIPTIONS[0]+10;
 
     }
     public void onEquip() {

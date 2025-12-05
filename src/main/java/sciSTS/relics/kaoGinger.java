@@ -16,7 +16,7 @@ import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import sciSTS.helpers.ModHelper;
 
-public class kaoGinger extends CustomRelic implements OnReceivePowerRelic {
+class kaoGinger extends CustomRelic implements OnReceivePowerRelic {
     public static final String ID = ModHelper.makePath(kaoGinger.class.getSimpleName());
 
     public kaoGinger() {

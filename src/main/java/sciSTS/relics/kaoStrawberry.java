@@ -21,7 +21,7 @@ public class kaoStrawberry extends CustomRelic {
     }
 
     public String getUpdatedDescription() {
-        return this.DESCRIPTIONS[0];
+        return this.DESCRIPTIONS[0]+7;
 
     }
     public void onEquip() {

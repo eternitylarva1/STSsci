@@ -62,7 +62,7 @@ public class GrillOption extends AbstractCampfireOption {
             this.description = TEXT[1] + TEXT[3];
         }
 
-        this.img = ImageMaster.loadImage("SciSTSResources/images/relics/kaoMango.png");
+        this.img = ImageMaster.loadImage("SciSTSResources/images/ui/ritual.png");
     }
 
     public void useOption() {
@@ -77,11 +77,4 @@ public class GrillOption extends AbstractCampfireOption {
         TEXT = CardCrawlGame.languagePack.getUIString(ID).TEXT;
     }
 
-    @Override
-    public void render(SpriteBatch sb) {
-        Color color = sb.getColor();
-        sb.setColor(Color.WHITE);
-        sb.setColor(color);
-        super.render(sb);
-    }
 }

@@ -21,7 +21,7 @@ public class kaoMango extends CustomRelic {
     }
 
     public String getUpdatedDescription() {
-        return this.DESCRIPTIONS[0];
+        return this.DESCRIPTIONS[0]+14;
 
     }
     public void onEquip() {
