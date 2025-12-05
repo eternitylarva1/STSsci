@@ -116,10 +116,19 @@ public class GrillEffect extends AbstractGameEffect {
             for (AbstractCard selectedCard : selectedRelics) {
                 for (AbstractRelic relic : availableRelics) {
                     if (relic.relicId.equals(selectedCard.cardID)) {
+                        // 先获取烤完后的新遗物
+                        String newRelicId = grillableMap.get(relic.relicId);
+                        if (newRelicId != null) {
+                            AbstractRelic newRelic = createNewRelic(newRelicId);
+                            if (newRelic != null) {
+                                // 显示烧烤成功后的新遗物效果
+                                ShowCardBrieflyEffect effect = new ShowCardBrieflyEffect(createRelicCard(newRelic), 0.0F, 0.0F);
+                                AbstractDungeon.effectsQueue.add(effect);
+                            }
+                        }
+
+                        // 执行烧烤逻辑
                         grillRelic(relic);
-                        // 显示烧烤成功的效果 - 使用遗物本身创建效果
-                        ShowCardBrieflyEffect effect = new ShowCardBrieflyEffect(createRelicCard(relic), 0.0F, 0.0F);
-                        AbstractDungeon.effectsQueue.add(effect);
                         break;
                     }
                 }
