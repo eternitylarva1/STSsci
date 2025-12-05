@@ -29,6 +29,6 @@
 
 }  ,
   "LagaEscape": {
-    "NAME": "小心翼翼",
-    "DESCRIPTION": "尝试从睡着的乐加旁边溜过去。 NL 有敏捷：必定成功。 NL 无敏捷：85%成功，15%惊醒。"
+    "NAME": "Tiptoe Past",
+    "DESCRIPTION": "Attempt to sneak past the sleeping Laga. NL With Dexterity: Always succeed. NL Without Dexterity: 85% success, 15% chance to wake Laga."
   }
