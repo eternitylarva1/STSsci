@@ -206,6 +206,53 @@ ArrayList<AbstractCampfireOption> buttons = Invoker.getField(restRoom.campfireUI
 3. **查看标准方法** - 检查是否有更简单的公开API可用
 4. **文档记录** - 将验证过的方法/字段记录到代码注释中
 
+## 🔍 原版卡牌/遗物识别方法
+
+### 📁 使用.SlayTheSpireLibrary查找原版内容
+当需要确认某个卡牌/遗物是否为游戏原版时，按以下步骤操作：
+
+#### 1. 定位本地化文件
+```bash
+# 在SlayTheSpireLibrary中查找本地化文本
+grep -n "卡牌名称" ".SlayTheSpireLibrary/本地化文本/cards.json"
+grep -n "遗物名称" ".SlayTheSpireLibrary/本地化文本/relics.json"
+```
+
+#### 2. 已确认的原版情感类诅咒卡牌
+通过检索发现以下5张卡牌是**游戏原版**的情感类诅咒：
+
+| 类名 | 中文名 | 英文名 | 类型 | 描述特征 |
+|------|---------|---------|------|----------|
+| Doubt | 疑虑 | Doubt | 诅咒 | "不能被打出。回合结束时，获得1层虚弱。" |
+| Regret | 悔恨 | Regret | 诅咒 | "不能被打出。回合结束时，失去相当于手牌数量的生命。" |
+| Writhe | 苦恼 | Writhe | 诅咒 | "不能打出。固有。" |
+| Pride | 傲慢 | Pride | 诅咒 | "固有。消耗。回合结束时，在抽牌堆顶部加入复制品。" |
+| Shame | 羞耻 | Shame | 诅咒 | "不能打出。回合结束时，获得1层脆弱。" |
+
+#### 3. 使用方法
+**在代码中的正确引用方式：**
+```java
+// ✅ 正确：直接使用原版类
+if (card instanceof Doubt || card instanceof Regret || card instanceof Writhe || card instanceof Pride || card instanceof Shame)
+
+// ❌ 错误：自定义情感类（除非特殊需求）
+// 不需要为原版卡牌创建自定义类
+```
+
+#### 4. 检查标志
+**确认是否为原版的关键特征：**
+- 在`.SlayTheSpireLibrary/本地化文本/`中有对应的JSON条目
+- 卡包中没有`modId`字段
+- 类路径以`com.megacrit.cardcrawl.cards.`开头
+- 遗物类路径以`com.megacrit.cardcrawl.relics.`开头
+
+#### 5. 常见误区
+- ❌ 误以为需要为原版卡牌创建mod版本
+- ❌ 重复实现游戏已有的功能
+- ❌ 用自定义类包装原版内容增加复杂性
+
+**总结：SlayTheSpireLibrary是确认原版内容的标准工具，应该在此目录中查找确认后再决定是否需要自定义实现。**
+
 ### 2025-12-05 用户代码正确性认识教训
 
 **问题描述：**
