@@ -2,14 +2,12 @@ package sciSTS.ui;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.ui.campfire.AbstractCampfireOption;
 import sciSTS.helpers.ModHelper;
-import sciSTS.modcore.SciSTS;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +17,7 @@ import java.util.Map;
 public class GrillOption extends AbstractCampfireOption {
     public static final String[] TEXT;
     private boolean hasGrillableRelics;
+    private int remainingUses = 2; // 每个房间独立的使用次数
 
     public GrillOption(boolean active) {
         this.label = TEXT[0];
@@ -54,30 +53,8 @@ public class GrillOption extends AbstractCampfireOption {
         return false;
     }
 
-    private int getRemainingUses() {
-        String value = SciSTS.config.getString("grill_remaining_uses");
-        if (value == null || value.isEmpty()) {
-            return 2; // 默认值
-        }
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-            return 2; // 默认值
-        }
-    }
-
-    private void setRemainingUses(int uses) {
-        SciSTS.config.setString("grill_remaining_uses", String.valueOf(uses));
-        try {
-            SciSTS.config.save();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void updateUsability(boolean canUse) {
         this.hasGrillableRelics = checkGrillableRelics();
-        int remainingUses = getRemainingUses();
         this.usable = canUse && this.hasGrillableRelics && remainingUses > 0;
 
         if (this.hasGrillableRelics && remainingUses > 0) {
@@ -90,10 +67,9 @@ public class GrillOption extends AbstractCampfireOption {
     }
 
     public void useOption() {
-        int remainingUses = getRemainingUses();
         if (this.usable && this.hasGrillableRelics && remainingUses > 0) {
             AbstractDungeon.effectList.add(new GrillEffect());
-            setRemainingUses(remainingUses - 1);
+            remainingUses--;
         }
     }
 
