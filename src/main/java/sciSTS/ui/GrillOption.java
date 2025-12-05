@@ -70,6 +70,7 @@ public class GrillOption extends AbstractCampfireOption {
         if (this.usable && this.hasGrillableRelics && remainingUses > 0) {
             AbstractDungeon.effectList.add(new GrillEffect());
             remainingUses--;
+            this.updateUsability(true); // 刷新按钮状态（次数用完时会变为不可用）
         }
     }
 
