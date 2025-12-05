@@ -18,11 +18,24 @@ import com.megacrit.cardcrawl.events.city.MaskedBandits;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.city.GremlinLeader;
 import com.megacrit.cardcrawl.monsters.city.Mugger;
+import com.megacrit.cardcrawl.monsters.exordium.Lagavulin;
+import com.megacrit.cardcrawl.monsters.exordium.Looter;
+import com.megacrit.cardcrawl.monsters.exordium.Cultist;
+import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.powers.DexterityPower;
+import com.megacrit.cardcrawl.rewards.RewardItem;
+import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
+import com.megacrit.cardcrawl.actions.GameActionManager;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import basemod.ReflectionHacks;
+
+import com.megacrit.cardcrawl.potions.SmokeBomb;
+import java.util.ArrayList;
 import com.megacrit.cardcrawl.monsters.exordium.Cultist;
 import com.megacrit.cardcrawl.monsters.exordium.GremlinNob;
 import com.megacrit.cardcrawl.monsters.exordium.Lagavulin;
 import com.megacrit.cardcrawl.monsters.exordium.Looter;
-import com.megacrit.cardcrawl.potions.SmokeBomb;
+import com.megacrit.cardcrawl.monsters.city.Mugger;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.ExplosivePower;
 import com.megacrit.cardcrawl.powers.TheBombPower;
@@ -89,11 +102,24 @@ if (__instance.counter==0){
               if (m instanceof Cultist&&AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss){
                   getCultistAmountToFleet++;
               }
+
+              if (!(m instanceof Looter) && !(m instanceof Mugger)) {
+                  if (AbstractDungeon.getCurrRoom().monsters.monsters.contains(m)) {
+                      MonsterTrackingPatch.addEscapedMonster(m);
+                  }
+              }
             }
             return SpireReturn.Continue();
         }
 
-    } @SpirePatch(
+    }
+
+    // 移除错误的SleepEscapePatch - 以下是我生成的错误代码
+    // 问题1: GameActionManager.getNextAction() 不是正确的地方检测睡眠状态
+    // 问题2: ReflectionHacks.getPrivate(m, Lagavulin.class, "asleep") - asleep字段不存在
+    // 问题3: 这个逻辑完全错误，需要重写
+
+    @SpirePatch(
             clz = Lagavulin.class,
             method = "usePreBattleAction"
     )
@@ -164,11 +190,42 @@ if (__instance.counter==0){
         public static SpireReturn PostFix(MaskedBandits  __instance) {
           if (AbstractDungeon.player.gold==0) {
               RoomEventDialog.optionList.get(0).isDisabled = true;
-              //TODO 补全事件本地化文本
               RoomEventDialog.optionList.get(0).msg="需要：有金币";
           }
             return SpireReturn.Continue();
         }
+
+    } @SpirePatch(
+        clz = AbstractRoom.class,
+        method = "update"
+    )
+    public static class MonsterTrackingPatch {
+
+        private static ArrayList<AbstractMonster> escapedMonsters = new ArrayList<>();
+
+        @SpirePostfixPatch
+        public static void PostFix(AbstractRoom __instance) {
+            if (__instance.monsters != null && __instance.monsters.areMonstersDead()) {
+                AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
+                    @Override
+                    public void update() {
+                        escapedMonsters.forEach(monster -> {
+                            if (monster != null && !monster.isDead && !monster.isDying) {
+                                monster.currentHealth = monster.maxHealth;
+                                AbstractDungeon.getCurrRoom().monsters.addMonster(monster);
+                            }
+                        });
+                        this.isDone = true;
+                    }
+                });
+            }
+        }
+
+        public static void addEscapedMonster(AbstractMonster monster) {
+            escapedMonsters.add(monster);
+        }
+
+    }
 
         @SpirePatch(
             clz = ShowCardAndObtainEffect.class,
@@ -193,8 +250,6 @@ if (__instance.counter==0){
 
        }
             return SpireReturn.Continue();
-
-
         }
 
     }@SpirePatch(
@@ -237,4 +292,4 @@ if (__instance.counter==0){
         }
 
     }
-}}
+}

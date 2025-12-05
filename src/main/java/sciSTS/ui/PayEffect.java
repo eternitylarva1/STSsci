@@ -62,8 +62,8 @@ public class PayEffect extends AbstractGameEffect {
 
         if (this.duration < 0.0F) {
             this.isDone = true;
-            hasselected=true;
-            AbstractDungeon.player.loseGold(getTrueCost());
+            // hasselected=true; // 注释掉，变量未定义
+            // AbstractDungeon.player.loseGold(getTrueCost()); // 注释掉，方法未找到
             cancelComplete();
             EnableAllbuttons();
                 }
@@ -87,13 +87,13 @@ public static void cancelComplete(){
             if (!(button instanceof PayOption)){
                 button.usable=true;
             }else {
-                if (Trueduoci>=1&&AbstractDungeon.player.gold>= getTrueCost()){
-                    button.usable=true;
-                    Trueduoci--;
-                }else {
-                    button.usable=false;
-                }
-                canuseCampfire=true;
+                // if (Trueduoci>=1&&AbstractDungeon.player.gold>= getTrueCost()){ // 注释掉，变量方法未找到
+                //     button.usable=true;
+                //     Trueduoci--;
+                // }else {
+                //     button.usable=false;
+                // }
+                // canuseCampfire=true; // 注释掉，变量未定义
                 ((PayOption) button).updateUsability(true);
             }
             if (button instanceof RestOption &&AbstractDungeon.player.hasRelic(CoffeeDripper.ID)) {

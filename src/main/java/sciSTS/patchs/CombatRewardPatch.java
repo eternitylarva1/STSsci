@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardItem.RewardType;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
+import sciSTS.cards.red.jiaoxie;
 import org.lwjgl.Sys;
 
 import java.util.ArrayList;
@@ -31,6 +32,11 @@ public class CombatRewardPatch {
 @SpirePostfixPatch
     public static void Postfix(CombatRewardScreen __instance) {
         MonsterGroup monsterGroup = MonsterHelper.getEncounter(AbstractDungeon.lastCombatMetricKey);
+
+        // 检查是否使用了缴械卡，如果没使用则不执行额外奖励逻辑
+        if (!jiaoxie.dropWeapons) {
+            return;
+        }
 
         // 在设置战斗奖励后，检查是否有怪物需要额外奖励
         for (AbstractMonster monster : monsterGroup.monsters) {
@@ -52,6 +58,9 @@ public class CombatRewardPatch {
                 }
             }
         }
+
+        // 重置标记，下次战斗默认不掉落武器
+        jiaoxie.dropWeapons = false;
     }
 
 

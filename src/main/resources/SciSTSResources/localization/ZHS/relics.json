@@ -215,5 +215,17 @@
   "DESCRIPTIONS": [
     "点火后的 #b6 回合开始时，获得 #b1 层 #y无实体 。需要在火堆点火后才能使用"
   ]
+},"Sci:BranchFuel": {
+  "NAME": "树枝燃料",
+  "FLAVOR": "干燥的树枝是完美的火堆燃料。",
+  "DESCRIPTIONS": [
+    "使用后恢复一个已使用的火堆选项。"
+  ]
+},"Sci:RoastedMushroom": {
+  "NAME": "烤蘑菇",
+  "FLAVOR": "烤过的蘑菇散发着奇特的香气，似乎能抵御一切有害影响。",
+  "DESCRIPTIONS": [
+    "所有易伤不再增伤效果。"
+  ]
 }
 }

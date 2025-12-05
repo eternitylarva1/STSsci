@@ -18,8 +18,10 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import sciSTS.utils.Invoker;
+import sciSTS.patchs.CombatRewardPatch;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 import static sciSTS.utils.SpineRegionExtractor.getTextureFromSlot;
@@ -28,6 +30,7 @@ import static sciSTS.utils.TextureCache.cacheTexture;
 public class jiaoxie extends AbstractCard {
     public static final String ID = "Disarm";
     private static final CardStrings cardStrings;
+    public static boolean dropWeapons = false; // 标记是否应该掉落武器
 
     public jiaoxie() {
         super("Disarm", cardStrings.NAME, "red/skill/disarm", 1, cardStrings.DESCRIPTION, CardType.SKILL, CardColor.RED, CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
@@ -92,8 +95,11 @@ AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
             /*AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new Customweapon(getCachedTexture(textureKey))));
             */}
 
+            // 如果成功缴械了武器，标记应该掉落武器
+            if (weaponSlots.size() > 0) {
+                dropWeapons = true;
+            }
         }
-
 
         isDone=true;
     }
