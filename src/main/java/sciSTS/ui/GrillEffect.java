@@ -151,22 +151,31 @@ public class GrillEffect extends AbstractGameEffect {
             this.cardID = relic.relicId;
             this.rawDescription = relic.description;
 
-            // 使用参考模式：从遗物复制贴图
-            // 通过反射获取遗物的图片字段
+            // 使用用户提供的方法：从遗物复制贴图
+            changeTexturesFromRelic(relic);
+
+            this.initializeDescription();
+        }
+
+        private void changeTexturesFromRelic(AbstractRelic relic) {
             try {
-                java.lang.reflect.Field imgField = AbstractRelic.class.getDeclaredField("img");
-                imgField.setAccessible(true);
-                Object img = imgField.get(relic);
-                if (img != null) {
-                    java.lang.reflect.Field cardImgField = AbstractCard.class.getDeclaredField("img");
-                    cardImgField.setAccessible(true);
-                    cardImgField.set(this, img);
+                // 通过反射获取遗物的Texture
+                java.lang.reflect.Field textureField = AbstractRelic.class.getDeclaredField("texture");
+                textureField.setAccessible(true);
+                Object texture = textureField.get(relic);
+
+                if (texture != null) {
+                    changeTextures((com.badlogic.gdx.graphics.Texture) texture);
                 }
             } catch (Exception e) {
                 // 忽略错误，使用默认图片
             }
+        }
 
-            this.initializeDescription();
+        public void changeTextures(com.badlogic.gdx.graphics.Texture texture) {
+            // Step 2: 将Texture转换为TextureAtlas.AtlasRegion
+            com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion customRegion = new com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion(texture, 0, 0, texture.getWidth(), texture.getHeight());
+            this.portrait = customRegion;
         }
 
         @Override
