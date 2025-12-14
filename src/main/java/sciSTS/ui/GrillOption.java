@@ -35,6 +35,9 @@ public class GrillOption extends AbstractCampfireOption {
         GRILLABLE_MAPPING.put("Dagger", "Sci:kaoPear"); // 树枝烤梨子
         GRILLABLE_MAPPING.put(IceCream.ID, kaoIceCream.ID);
 
+        GRILLABLE_MAPPING.put("Ginger", "Sci:kaoGinger"); // 生姜烤熟成烤生姜
+        GRILLABLE_MAPPING.put("Turnip", "Sci:kaoTurnip"); // 萝卜烤熟成烤萝卜
+
         GRILLABLE_MAPPING.put("Mushroom", "Sci:RoastedMushroom"); // 烤蘑菇
         GRILLABLE_MAPPING.put("Dead Branch", CharonsAshes.ID);
         GRILLABLE_MAPPING.put(BloodVial.ID, BurningBlood.ID);

@@ -227,6 +227,42 @@
   "DESCRIPTIONS": [
     "所有易伤不再增伤效果。"
   ]
+},"Sci:kaoMango": {
+  "NAME": "烤芒果",
+  "FLAVOR": "经过火焰烤制的芒果，甜味更加浓郁，直接转化为生命能量。",
+  "DESCRIPTIONS": [
+    "立即治疗 "
+  ]
+},"Sci:kaoStrawberry": {
+  "NAME": "烤草莓",
+  "FLAVOR": "烤制的草莓释放出丰富的维生素，直接补充体力。",
+  "DESCRIPTIONS": [
+    "立即治疗 "
+  ]
+},"Sci:kaoPear": {
+  "NAME": "烤梨子",
+  "FLAVOR": "烤过的梨子润肺生津，温暖的果肉滋养全身。",
+  "DESCRIPTIONS": [
+    "立即治疗 "
+  ]
+},"Sci:kaoGinger": {
+  "NAME": "烤生姜",
+  "FLAVOR": "烤制后的生姜辛辣味减弱，温暖的力量转化为意志力。",
+  "DESCRIPTIONS": [
+    "当你获得虚弱效果时，改为获得等量力量。"
+  ]
+},"Sci:kaoTurnip": {
+  "NAME": "烤萝卜",
+  "FLAVOR": "烤制的萝卜变得更加坚硬，其韧性提升了你的敏捷。",
+  "DESCRIPTIONS": [
+    "当你获得脆弱效果时，改为获得等量敏捷。"
+  ]
+},"Sci:kaoIceCream": {
+  "NAME": "融化冰淇淋",
+  "FLAVOR": "半融化的冰淇淋在口中流淌，带来清凉的舒适感。",
+  "DESCRIPTIONS": [
+    "每场战斗开始时获得3层短暂的无实体效果。"
+  ]
 },
   "Medical Kit": {
     "NAME": "医疗箱",
