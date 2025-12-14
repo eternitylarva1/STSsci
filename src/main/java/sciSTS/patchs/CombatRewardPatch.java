@@ -31,16 +31,19 @@ public class CombatRewardPatch {
     }
 @SpirePostfixPatch
     public static void Postfix(CombatRewardScreen __instance) {
-        MonsterGroup monsterGroup = MonsterHelper.getEncounter(AbstractDungeon.lastCombatMetricKey);
-
         // 检查是否使用了缴械卡，如果没使用则不执行额外奖励逻辑
         if (!jiaoxie.dropWeapons) {
+            System.out.println("缴械drop Weapons为false，不执行额外奖励");
             return;
         }
+
+        MonsterGroup monsterGroup = MonsterHelper.getEncounter(AbstractDungeon.lastCombatMetricKey);
+        System.out.println("正在处理战斗奖励，怪物组合: " + AbstractDungeon.lastCombatMetricKey);
 
         // 在设置战斗奖励后，检查是否有怪物需要额外奖励
         for (AbstractMonster monster : monsterGroup.monsters) {
             String monsterId = monster.id;
+            System.out.println("检查怪物: " + monsterId);
 
             // 遍历所有奖励配置，检查当前怪物是否匹配任何奖励配置
             for (Map.Entry<String, List<String>> entry : MonsterReward.entrySet()) {
@@ -48,11 +51,14 @@ public class CombatRewardPatch {
                 List<String> configuredMonsterIds = entry.getValue();  // 怪物ID列表作为value
 
                 if (configuredMonsterIds.contains(monsterId)) {
+                    System.out.println("怪物 " + monsterId + " 匹配奖励: " + rewardKey);
                     // 根据奖励键值创建对应的额外奖励
                     if (RelicLibrary.getRelic(rewardKey) != null) {
                         RewardItem extraReward = new RewardItem(RelicLibrary.getRelic(rewardKey).makeCopy());
                         __instance.rewards.add(extraReward);
                         System.out.println("为怪物 " + monsterId + " 添加额外奖励: " + rewardKey);
+                    } else {
+                        System.out.println("错误: 找不到遗物 " + rewardKey);
                     }
                     break;  // 每个怪物只匹配一个奖励
                 }
@@ -61,6 +67,7 @@ public class CombatRewardPatch {
 
         // 重置标记，下次战斗默认不掉落武器
         jiaoxie.dropWeapons = false;
+        System.out.println("奖励处理完成，已重置dropWeapons标记");
     }
 
 

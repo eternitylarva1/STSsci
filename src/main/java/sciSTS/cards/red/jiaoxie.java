@@ -40,6 +40,7 @@ public class jiaoxie extends AbstractCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        System.out.println("使用缴械卡！");
 AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
     @Override
     public void update() {
@@ -47,6 +48,8 @@ AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
         Slot slot ;
         TextureAtlas atlas;
         ArrayList<Slot> weaponSlots = new ArrayList<>();
+
+        System.out.println("检查武器槽位数: " + weaponSlots.size());
         for (AbstractMonster monster : AbstractDungeon.getCurrRoom().monsters.monsters) {
             weaponSlots.clear();
             atlas= Invoker.getField(monster,"atlas");
@@ -85,6 +88,7 @@ AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
                 }
 
             }
+            System.out.println("怪物 " + monster.id + " 的武器槽位数: " + weaponSlots.size());
             for (Slot slots : weaponSlots) {
                 Color currentColor = slots.getColor();
 
@@ -98,6 +102,9 @@ AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
             // 如果成功缴械了武器，标记应该掉落武器
             if (weaponSlots.size() > 0) {
                 dropWeapons = true;
+                System.out.println("发现武器！设置dropWeapons为true");
+            } else {
+                System.out.println("未发现武器，dropWeapons保持false");
             }
         }
 
