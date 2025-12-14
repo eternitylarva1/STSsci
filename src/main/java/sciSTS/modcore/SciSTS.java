@@ -162,8 +162,8 @@ BaseMod.addCustomScreen(new EventScreen());
         NemesisMonsters.add(Nemesis.ID);
         CombatRewardPatch.MonsterReward.put(Scythe.ID, NemesisMonsters);
         List<String> BookOfstabbingMonsters = new ArrayList<>();
-        NemesisMonsters.add(BookOfStabbing.ID);
-        CombatRewardPatch.MonsterReward.put(zharendao.ID, NemesisMonsters);
+        BookOfstabbingMonsters.add(BookOfStabbing.ID);
+        CombatRewardPatch.MonsterReward.put(zharendao.ID, BookOfstabbingMonsters);
     }
 
 
@@ -179,7 +179,6 @@ BaseMod.addCustomScreen(new EventScreen());
 
          }
          getCultistAmountToFleet=0;
-
      }
     }
 
@@ -228,7 +227,7 @@ if (AbstractDungeon.player != null&&AbstractDungeon.player.hasRelic(sciSTS.relic
 
     @Override
     public void receivePostBattle(AbstractRoom abstractRoom) {
-turn=0;
+        turn=0;
     }
     int iamount=1000;
         @Override

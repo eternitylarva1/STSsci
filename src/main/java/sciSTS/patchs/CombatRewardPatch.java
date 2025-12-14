@@ -60,7 +60,6 @@ public class CombatRewardPatch {
                     } else {
                         System.out.println("错误: 找不到遗物 " + rewardKey);
                     }
-                    break;  // 每个怪物只匹配一个奖励
                 }
             }
         }

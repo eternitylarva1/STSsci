@@ -5,9 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.ui.campfire.AbstractCampfireOption;
 import sciSTS.helpers.ModHelper;
+import sciSTS.relics.kaoIceCream;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,9 +33,12 @@ public class GrillOption extends AbstractCampfireOption {
         GRILLABLE_MAPPING.put("Sci:Pear", "Sci:kaoPear");
         GRILLABLE_MAPPING.put("Sci:rouchuan", "Sci:kaoMeat");
         GRILLABLE_MAPPING.put("Dagger", "Sci:kaoPear"); // 树枝烤梨子
-        GRILLABLE_MAPPING.put("Staff", "Sci:BranchFuel"); // 树枝续火
+        GRILLABLE_MAPPING.put(IceCream.ID, kaoIceCream.ID);
+
         GRILLABLE_MAPPING.put("Mushroom", "Sci:RoastedMushroom"); // 烤蘑菇
-        GRILLABLE_MAPPING.put("Dead Branch", "Charon's Ash"); // 枯木树枝烤成卡戎灰
+        GRILLABLE_MAPPING.put("Dead Branch", CharonsAshes.ID);
+        GRILLABLE_MAPPING.put(BloodVial.ID, BurningBlood.ID);
+        // 枯木树枝烤成卡戎灰
         // 后续新增烧烤映射直接在这里添加
         // GRILLABLE_MAPPING.put("原版遗物ID", "烧烤后遗物ID");
     }

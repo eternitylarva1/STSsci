@@ -9,13 +9,20 @@ import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.Slot;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.colorless.RitualDagger;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.shrines.Nloth;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.beyond.AwakenedOne;
+import com.megacrit.cardcrawl.monsters.exordium.Cultist;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.relics.DeadBranch;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import sciSTS.utils.Invoker;
 import sciSTS.patchs.CombatRewardPatch;
@@ -40,6 +47,16 @@ public class jiaoxie extends AbstractCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        for (AbstractMonster monster : AbstractDungeon.getCurrRoom().monsters.monsters) {
+            if (monster instanceof AwakenedOne){
+                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(new RitualDagger()));
+            }
+            if (monster instanceof Cultist){
+                AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)(Settings.WIDTH / 2), (float)(Settings.HEIGHT / 2), new DeadBranch());
+
+            }
+        }
+
         System.out.println("使用缴械卡！");
 AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
     @Override
